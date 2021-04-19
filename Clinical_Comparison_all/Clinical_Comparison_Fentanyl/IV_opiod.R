@@ -136,6 +136,10 @@ if (patien_case=="Chronic") {
 	
 }
 eventdata<-data.frame(var="FIV",time=eventtimes,value=eventdose,method="add")
+		
+
+timepoints<-sort(unique(c(timepoints, cleanEventTimes(eventdata$time, timepoints))))
+		
 
 try({out0 <- ode(initstates, timepoints, "derivs", pars, dllname=modelname,initfunc="initmod",rtol=1e-3,atol=1e-6,method="lsoda",events=list(data=eventdata))});		
 	out=data.frame(out0)
