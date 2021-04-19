@@ -207,7 +207,7 @@ ggsave(paste0( "figs/",patien_case,"_IFV_justp4_Rev01_EB_NE_EQ",P2,".pdf"), p4, 
 
 predfun_ccc<-function(p,x){(G0-p[1]*x^p[2])*(V0/G0 - p[3]*x^p[4])/V0}
 
-pdf("figs/simple curves.pdf")
+pdf("figs/simple_curves.pdf")
 plot(seq(0,1,by=0.1), 100*predfun_ccc(c(0.42,9,20,2.365),seq(0,1,by=0.1)),type="l",col="red",xlab="Fraction of Mu Receptor Bound by Opioids",ylab="Minute Ventilation Volume (%Baseline)")
 
 lines(seq(0,1,by=.1), 100*predfun_ccc(c(0.42,5.2,29.65,1.629),seq(0,1,by=.1)),col="green")
