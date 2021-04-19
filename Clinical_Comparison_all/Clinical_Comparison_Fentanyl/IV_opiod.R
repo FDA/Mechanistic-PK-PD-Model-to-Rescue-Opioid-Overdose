@@ -198,9 +198,9 @@ plotlist1[[3]] = p3
 plotlist1[[4]] = p4
 
 pall1 <- grid.arrange(grobs=plotlist1,ncol=2)
-ggsave(paste0("figs/",patien_case,"_IFV_Rev01_EB_New_EQ_P2",P2,".pdf"), pall1, width=8, height=6)
+ggsave(paste0("figs/",patien_case,"_IFV_.pdf"), pall1, width=8, height=6)
 
-ggsave(paste0( "figs/",patien_case,"_IFV_justp4_Rev01_EB_NE_EQ",P2,".pdf"), p4, width=8, height=6)
+ggsave(paste0( "figs/",patien_case,"_IFV_justp4.pdf"), p4, width=8, height=6)
 
 
 #---- Plotting Occupancy vs Ventilation Curves for Naive and Chronic Users
