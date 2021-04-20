@@ -15,3 +15,6 @@ This code was developed with R version 3.3 and uses the following packages:
 * deSolve (version 1.14)
 * gridExtra (version 2.2.1)
 
+# Clinical Comparison
+
+Clinical_Comparison_all/ contains 
