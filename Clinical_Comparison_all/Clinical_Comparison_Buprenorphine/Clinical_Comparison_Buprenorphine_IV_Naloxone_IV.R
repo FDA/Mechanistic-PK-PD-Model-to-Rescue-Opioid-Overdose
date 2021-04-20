@@ -4,9 +4,7 @@ proc_start<-proc.time()
 drug<-"Buprenorphine_IV"
 #--- load libraries
 library(deSolve)
-library(FME)
 library(ggplot2)
-library(plyr)
 print(sessionInfo())
 
 
