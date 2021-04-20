@@ -1,6 +1,6 @@
 # Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose
 
-R code used to Validate Mechansitic PK-PD Model of Opioid Overdose
+R code used to validate Mechansitic PK-PD Model of Opioid Overdose through simulation of clinical ventilation trials
 
 # Authors
 
