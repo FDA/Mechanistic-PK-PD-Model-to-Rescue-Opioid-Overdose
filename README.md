@@ -10,8 +10,8 @@ John Mann, Mohammadreza Samieegohar, Xiaomei Han, Anik Chaturbedi, Zhihua Li
 
 This code was developed with R version 3.3 and uses the following packages:
 
-optparse (version 1.4.4)
-ggplot2 (version 2.2.0)
-deSolve (version 1.14)
-gridExtra (version 2.2.1)
+* optparse (version 1.4.4)
+* ggplot2 (version 2.2.0)
+* deSolve (version 1.14)
+* gridExtra (version 2.2.1)
 
