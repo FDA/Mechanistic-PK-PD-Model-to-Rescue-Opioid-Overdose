@@ -17,4 +17,8 @@ This code was developed with R version 3.3 and uses the following packages:
 
 # Clinical Comparison
 
-Clinical_Comparison_all/ contains 
+Clinical_Comparison_all/ contains code to validate the PK-PD model of opioid induced respiratory depression through clinical prediction. Clinical comparisons were conducted with naive and chronic fentanyl exposure (Clinical_Comparison_Fentanyl/), remifentanil (Clinical_Comparison_Remifentanil/) and buprenorphine with naloxone induced ventilation recovery (Clinical_Comparison_Buprenorphine/)
+
+# Ligand Data
+
+Ligand_data/ contains the PKPD parameters used to simulate overdose of fentanyl, carfentanil and remifentanil and subsequent reversal with naloxone. 
