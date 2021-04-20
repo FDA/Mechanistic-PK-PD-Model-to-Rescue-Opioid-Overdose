@@ -22,3 +22,7 @@ Clinical_Comparison_all/ contains code to validate the PK-PD model of opioid ind
 # Ligand Data
 
 Ligand_data/ contains the PKPD parameters used to simulate overdose of fentanyl, carfentanil and remifentanil and subsequent reversal with naloxone. 
+
+#Opioid Model Parameters and Rationale
+
+The file: Opioid_Model_Parameters_and_Rationale.docx describes, in detail, the receptor binding, PK, and Ventilation models developed as part of this study. 
