@@ -1,8 +1,6 @@
 isWindows<-Sys.info()[["sysname"]]=="Windows"
 #--- load libraries
-library(cmaes)
 library(deSolve)
-library(parallel)
 library(ggplot2)
 library(gridExtra)
 plotlist = list()
