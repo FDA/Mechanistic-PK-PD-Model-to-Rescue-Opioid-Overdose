@@ -5,6 +5,7 @@ drug<-"Buprenorphine_IV"
 #--- load libraries
 library(deSolve)
 library(ggplot2)
+library(FME)
 print(sessionInfo())
 
 
