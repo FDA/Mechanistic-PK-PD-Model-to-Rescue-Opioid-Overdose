@@ -12,7 +12,7 @@ patien_case="Naive"
 
 
 #----- Remifentanil 
-expdata_Naive<-read.csv(paste0("paper_digitilized/barbenco.csv"))
+expdata_Naive<-read.csv(paste0("paper_digitized/barbenco.csv"))
 
 expdata_Naive_Fr<-expdata_Naive[,c(1:3)]
 names(expdata_Naive_Fr)<-c("time","MR","HR")
