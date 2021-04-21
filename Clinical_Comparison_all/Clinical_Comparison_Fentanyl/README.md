@@ -1,4 +1,4 @@
-#Simulation of fentanyl clinical studies. 
+# Simulation of fentanyl clinical studies. 
 This code combines the receptor binding model with PK models for fentanyl to simulate a clinical ventilation study for naive and chronic fentanyl users. IV fentanyl is described 
 by a 3-compartment model. These models are combined with a mechanistic model linking fraction of fentanyl-bound receptor to ventilation to simulate respiratory depression 
 following repeat IV fentanyl administration. The primary model output is percent of baseline ventilation.
