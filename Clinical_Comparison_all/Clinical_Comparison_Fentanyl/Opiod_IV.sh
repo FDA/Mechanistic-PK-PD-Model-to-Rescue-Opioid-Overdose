@@ -18,5 +18,5 @@ PATIENT_CASE=(Chronic)
 IDX=$((SGE_TASK_ID-1))
 PATIENT=${PATIENT_CASE[IDX]}
 
-Rscript IV_opiod.R -p "$PATIENT"  >& logfiles/"$JOB_NAME"."$PATIENT".o"$JOB_ID"."$SGE_TASK_ID".txt
+Rscript IV_Opiod.R -p "$PATIENT"  >& logfiles/"$JOB_NAME"."$PATIENT".o"$JOB_ID"."$SGE_TASK_ID".txt
 
