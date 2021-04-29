@@ -38,8 +38,6 @@ In developing the mu receptor binding model, association and dissociation assays
 
 dRL/dt=Kon* L^n*R-Koff*RL (1)
 
-\frac{n!}{k!(n-k)!}
-
 where L, R, and RL are free ligands (opioids or naloxone), free (unoccupied) mu receptors, and ligand-occupied receptors, respectively. Kon, Koff, and n are the binding rate, unbinding rate, and the slope of the dose-effect relationship, respectively. The concentration of receptors is represented as fractions of the total receptor R_total. Assuming R_total is 1, it follows that R = 1 – RL, and hence no ODE is needed for the amount (fraction) of free receptor R. There is also no ODE for the ligand L, because such simplification is needed to use fraction of receptors rather than real units for receptors in the ODE system, which is required in virtual patients simulations later [1]. Such a simplification assumes  there is minimal change of the free ligand concentration due to binding, which was supported by the observation that even at the lowest ligand concentration, only ~5% ligand was lost due to binding to mu receptors in our experimental systems (data not shown). 
 
 The parameters were estimated by fitting the model to the time course of association and dissociation data. Single point estimation of each parameter was obtained by fitting to the mean values of experimental data. The variability in experimental data and uncertainty in parameter estimation was captured and quantified by a boot strapping strategy developed earlier [2], which resulted in 2000 parameter sets that describe the joint distribution of Kon, Koff, and n based on experimental data.
