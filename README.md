@@ -17,7 +17,7 @@ This code was developed with R version 3.3 and uses the following packages:
 
 # Binding Parameters 
 
-Binding paramters (Kon, Koff and n) for the opioid ligands and naloxone used in clinical simulations as well as carfentanil can be found in their corresponding folder in “Ligand_Data/”. Optimal parameters are saved in the “pars.txt” file in the ligand folder. The “boot_pars.csv” file contains the uncertainty population for these binding parameters. The script parmsAlgera2020.R contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone. 
+Binding paramters (Kon, Koff and n) for the opioid ligands and naloxone used in clinical simulations as well as carfentanil can be found in their corresponding folder in [Ligand_Data/](). Using Fentanyl as an example, optimal parameters are saved in the pars.txt” file in the ligand folder. The “boot_pars.csv” file contains the uncertainty population for these binding parameters. The script parmsAlgera2020.R contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone. 
 
 # Generating Clinical Simulation and Comparison Figures
 
@@ -37,9 +37,6 @@ To recreate the remifentanil clinical comparison figures run the script [IV_opio
 # Receptor Binding Model
 In developing the mu receptor binding model, association and dissociation assays were conducted for each of the 9 opioid agonists and naloxone.  The binding model uses the following ordinary differential equation (ODE) to describe the system: 
 
-dRL/dt=Kon* L^n*R-Koff*RL (1)
-
-
 ![image](https://user-images.githubusercontent.com/76440648/116600098-eb6ad380-a8f6-11eb-977d-70269713ee13.png)
 
 
@@ -53,17 +50,14 @@ Compartmental pharmacokinetic (PK) models for fentanyl [3] and buprenorphine [1]
 
 For the PK of naloxone following nasal administration, plasma concentration profiles after a 4 mg intranasal (IN) naloxone hydrochloride dose in a single nostril and two 4 mg IN doses (1 per nostril administered approximately at the same time), as documented in the FDA label [5], were used to construct a nasal PK model. A transit compartment model with two transition compartments was used to describe the delay between the nasal spray and plasma concentration profile. The following system of ODEs was used to characterize the system.
 
-dT1/dt=Ktr*D*F*e^(-Ktr*t)-Ktr*T1 (2)
 
 ![image](https://user-images.githubusercontent.com/76440648/116604307-ef4d2480-a8fb-11eb-973d-129b5a32bbd5.png)
 
 
-dT2/dt=Ktr*T1-Kin*T2 (3)
 
 ![image](https://user-images.githubusercontent.com/76440648/116600849-c75bc200-a8f7-11eb-8323-6c4aa5999ee2.png)
 
 
-dP/dt=Kin/V*T2-CL/V*P (4)
 
 ![image](https://user-images.githubusercontent.com/76440648/116601094-0db12100-a8f8-11eb-9a73-810ad94b6aa7.png)
 
@@ -75,24 +69,18 @@ Here D, T1, T2, and P are the initial dose of nasal spray, and drug concentratio
 
 For the PK of naloxone following intramuscular injection, a model with 2 transition, 1 central, and 1 peripheral compartments was adopted.
 
-dT1/dt=Ktr*D*F*e^(-Ktr*t)-Ktr*T1 (5)
 
 ![image](https://user-images.githubusercontent.com/76440648/116601362-6d0f3100-a8f8-11eb-9163-47251a7fedcf.png)
 
 
 
-dT2/dt=Ktr*T1-Kin*T2 (6)
-
 ![image](https://user-images.githubusercontent.com/76440648/116601521-9af47580-a8f8-11eb-98c6-c94f709a3fee.png)
 
 
 
-dP/dt=Kin/V*T2-CL/V*P+CLi/V*P2-CLi/V*P  (7)
-
 ![image](https://user-images.githubusercontent.com/76440648/116601922-050d1a80-a8f9-11eb-8199-ac90fc4f7729.png)
 
 
-dP2/dt=CLi/V2*P-CLi/V2*P2  (8)
 
 ![image](https://user-images.githubusercontent.com/76440648/116602932-5538ac80-a8fa-11eb-9e5d-805ab62e3c38.png)
 
@@ -104,29 +92,19 @@ Here absorption-related parameters F, Ktr, and Kin depend on each formulation so
 
 The receptor binding model was combined with PK models for opioids and/or naloxone to simulate clinical ventilation studies for buprenorphine [4] and fentanyl [3]. The fentanyl and buprenorphine PK models after IV bolus injection were described by 3-compartment models [3, 4] with following equations.
 
-dC1/dt=K21*C2 + K31*C3-K12*C1 - K13*C3 -Kout*C1 (9)
 
 ![image](https://user-images.githubusercontent.com/76440648/116604209-d2185600-a8fb-11eb-94e7-ba1dc9091989.png)
 
 
 
-
-dC2/dt=K12*C1-K21*C2 (10)
-
 ![image](https://user-images.githubusercontent.com/76440648/116603638-253dd900-a8fb-11eb-964a-64b609324ce1.png)
 
-
-
-dC3/dt=K13*C1-K31*C3 (11)
 
 
 ![image](https://user-images.githubusercontent.com/76440648/116604366-04c24e80-a8fc-11eb-9f5b-ff5eec969274.png)
 
 
 
-
-
-dE/dt=K1*(C1-E) (12)
 
 ![image](https://user-images.githubusercontent.com/76440648/116604448-24f20d80-a8fc-11eb-8ed3-e32f0b666fd7.png)
 
@@ -140,7 +118,6 @@ The concentration in the effective compartment E can be used as L in equation 1 
 
 For buprenorphine, a linear transduction model as described in Yassen et al. [1, 4] was used to link the fraction of receptor bound by buprenorphine (RL) to the ventilation response with the following equation:
 
-〖E= E〗_0*(1- α*(RL/R_total ) (13)
 
 ![image](https://user-images.githubusercontent.com/76440648/116604660-6aaed600-a8fc-11eb-983a-70284428cbc5.png)
 
@@ -149,7 +126,6 @@ Here E and E0 are a patient’s minute ventilation volume (Vm) after and before 
 
 For fentanyl, it was estimated that the relationship between its concentration and the ventilation is non-linear and has different parameters for naïve vs chronic users [3].
 
-V(t)=VB*(1-      (α*(C(t)/C50))⁄((1+C(t)/C50))    (14)
 
 ![image](https://user-images.githubusercontent.com/76440648/116605897-fffe9a00-a8fd-11eb-86b0-08e3ebc9df11.png)
 
@@ -158,26 +134,22 @@ Here VB and V(t) are minute ventilation volume (mL/min) at baseline and after op
 
 To simulate competitive binding between opioid and naloxone we needed to reparametrize the above equation to use the fraction of opioid-bound mu receptor (LR). To achieve this goal, we took advantage of the well-known linear relationship between ventilation and carbon dioxide (CO2) at steady state [6]:
 
-V=G*(PeCO2-B)   (15)
 
 ![image](https://user-images.githubusercontent.com/76440648/116606088-363c1980-a8fe-11eb-8a22-d860c59991ea.png)
 
 
 Here V is the ventilation, G is the gain of the ventilatory control system, PeCO2 is the end-tidal CO2 pressure, and B is the extrapolated CO2 pressure where apnea would occur (apneic threshold) [6]. Opioids are known to be able to increase B, causing a parallel shift of the ventilation-PeCO2 curve. In addition, there are reports of opioids causing a reduction of the slope of the ventilation-PeCO2 curve, corresponding to a reduction of G [6]. In our work we found that, to fully account for the difference between naïve and chronic users, it is necessary to assume opioids have an effect on both G and B:
 
-B(drug)=B+Bmax*〖RL〗^P1 (16)
 
 ![image](https://user-images.githubusercontent.com/76440648/116632614-985c4500-a925-11eb-992a-efd5c25a95af.png)
 
 
-G(drug)=G-G*〖RL〗^P2 (17)
 
 ![image](https://user-images.githubusercontent.com/76440648/116632658-af9b3280-a925-11eb-88c4-0138f45ec9f6.png)
 
 
 Here Bmax is the maximum increase of B due to the binding of drug to the mu receptor. RL is the fraction (between 0 and 1) of mu receptor bound by the drug, and P1 and P2 are two parameters that control the increase of the drug effects with increasing RL. Incorporating equations 16 and 17 into 15, we have
 
-V(drug)=(G-G*〖RL〗^P1 )*(VB/G-Bmax*〖RL〗^P2)       (18)
 
 ![image](https://user-images.githubusercontent.com/76440648/116632799-f6892800-a925-11eb-94e6-fe0c6fa0c074.png)
 
