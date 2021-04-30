@@ -17,7 +17,7 @@ This code was developed with R version 3.3 and uses the following packages:
 
 # Binding Parameters 
 
-Binding paramters (Kon, Koff and n) for the opioid ligands and naloxone used in clinical simulations as well as carfentanil can be found in their corresponding folder in [Ligand_Data/](). Using Fentanyl as an example, optimal parameters are saved in the pars.txt” file in the ligand folder. The “boot_pars.csv” file contains the uncertainty population for these binding parameters. The script parmsAlgera2020.R contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone. 
+Binding paramters (Kon, Koff and n) for the opioid ligands and naloxone used in clinical simulations as well as carfentanil can be found in their corresponding folder in [Ligand_Data/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Ligand_Data). Using Fentanyl as an example, optimal parameters are saved in the [pars.txt](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/Fentanyl_A_pars.txt) in the ligand folder. [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/boot_pars.csv) contains the uncertainty population for these binding parameters. [parmsAlgera2020.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/parmsAlgera2020.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone. 
 
 # Generating Clinical Simulation and Comparison Figures
 
