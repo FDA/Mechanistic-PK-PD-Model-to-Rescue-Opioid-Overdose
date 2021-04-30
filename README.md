@@ -59,8 +59,6 @@ For the PK of naloxone following nasal administration, plasma concentration prof
 
 
 
-![image](https://user-images.githubusercontent.com/76440648/116601094-0db12100-a8f8-11eb-9a73-810ad94b6aa7.png)
-
 ![image](https://user-images.githubusercontent.com/76440648/116746214-21c55300-a9ca-11eb-9e4f-e5ef707f7b5d.png)
 
 
@@ -81,14 +79,11 @@ For the PK of naloxone following intramuscular injection, a model with 2 transit
 
 
 
-![image](https://user-images.githubusercontent.com/76440648/116601922-050d1a80-a8f9-11eb-8199-ac90fc4f7729.png)
 
 ![image](https://user-images.githubusercontent.com/76440648/116746305-47eaf300-a9ca-11eb-8d35-97dbfe47033d.png)
 
 
 
-
-![image](https://user-images.githubusercontent.com/76440648/116602932-5538ac80-a8fa-11eb-9e5d-805ab62e3c38.png)
 
 
 ![image](https://user-images.githubusercontent.com/76440648/116746401-6e109300-a9ca-11eb-834a-90daac2ffdec.png)
@@ -130,7 +125,6 @@ The concentration in the effective compartment E can be used as L in equation 1 
 For buprenorphine, a linear transduction model as described in Yassen et al. [1, 4] was used to link the fraction of receptor bound by buprenorphine (RL) to the ventilation response with the following equation:
 
 
-![image](https://user-images.githubusercontent.com/76440648/116604660-6aaed600-a8fc-11eb-983a-70284428cbc5.png)
 
 ![image](https://user-images.githubusercontent.com/76440648/116746607-bdef5a00-a9ca-11eb-946a-6813d753169f.png)
 
