@@ -26,11 +26,11 @@ To recreate the buprenorphine clinical simulation, run [Clinical_Comparison_Bupr
 
 ## Fentanyl Clinical Simulations
 To recreate the occupancy-ventilation curve and fentanyl clinical simulation figures run the script [IV_opioid.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/IV_opiod.R) in [Clinical_Comparison_Fentanyl/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl) and set the parser argument to either “Chronic” or “Naive”.  
-For example to produce the chronic figure: run Rscript IV_opiod.R -p “Chronic”. Figures will automatically be saved in figs/.
+For example to produce the chronic figure: run Rscript IV_opiod.R -p “Chronic”. Figures will automatically be saved in [figs/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs).
 
 ## Remifentanil Clinical Comparison 
 
-To recreate the remifentanil clinical comparison figures run the script [IV_opioid.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil/IV_opioid.R) in [Clinical_Comparison_Remifentanil/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil). Figures will automatically be saved in figs/ 
+To recreate the remifentanil clinical comparison figures run the script [IV_opioid.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil/IV_opioid.R) in [Clinical_Comparison_Remifentanil/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil). Figures will automatically be saved in [figs/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil/figs). 
 
  
 
