@@ -61,13 +61,16 @@ For the PK of naloxone following nasal administration, plasma concentration prof
 
 ![image](https://user-images.githubusercontent.com/76440648/116601094-0db12100-a8f8-11eb-9a73-810ad94b6aa7.png)
 
+![image](https://user-images.githubusercontent.com/76440648/116746214-21c55300-a9ca-11eb-9e4f-e5ef707f7b5d.png)
 
 
 
 
-Here D, T1, T2, and P are the initial dose of nasal spray, and drug concentrations  in the 1st transit, the 2nd transit, and the central compartment, respectively. F, Ktr, Kin, CL and V are the bioavailability, transit rate, absorption rate, clearance, and volume of distribution, respectively. The following values were used based on model fitting: F = 0.6349, Ktr = 0.004741 s-1, Kin = 0.0001775 s-1, CL = 89 ml/s, V = 3224 ml. In line with the FDA label, the 3rd dose is administered into the same nostril as the 1st dose, and the 4th dose the 2nd. A 15% reduction in bioavailability for the 3rd and 4th doses was applied to account for likely loss of drug (e.g. overflow) and/or reduced absorption due to repeat dosing in the same nostril.
 
-For the PK of naloxone following intramuscular injection, a model with 2 transition, 1 central, and 1 peripheral compartments was adopted.
+
+Here D, T1, T2, and N are the initial dose of nasal spray, and drug concentrations  in the 1st transit, the 2nd transit, and the central compartment, respectively. F, Ktr, Kin, CL and V are the bioavailability, transit rate, absorption rate, clearance, and volume of distribution, respectively. The following values were used based on model fitting: F = 0.6349, Ktr = 0.004741 s-1, Kin = 0.0001775 s-1, CL = 89 ml/s, V = 3224 ml. In line with the FDA label, the 3rd dose is administered into the same nostril as the 1st dose, and the 4th dose the 2nd. A 15% reduction in bioavailability for the 3rd and 4th doses was applied to account for likely loss of drug (e.g. overflow) and/or reduced absorption due to repeat dosing in the same nostril.
+
+For the PK of naloxone following intramuscular injection, a model with 2 transition, 1 central, and 1 peripheral (N2) compartments was adopted.
 
 
 ![image](https://user-images.githubusercontent.com/76440648/116601362-6d0f3100-a8f8-11eb-9163-47251a7fedcf.png)
@@ -80,9 +83,17 @@ For the PK of naloxone following intramuscular injection, a model with 2 transit
 
 ![image](https://user-images.githubusercontent.com/76440648/116601922-050d1a80-a8f9-11eb-8199-ac90fc4f7729.png)
 
+![image](https://user-images.githubusercontent.com/76440648/116746305-47eaf300-a9ca-11eb-8d35-97dbfe47033d.png)
+
+
 
 
 ![image](https://user-images.githubusercontent.com/76440648/116602932-5538ac80-a8fa-11eb-9e5d-805ab62e3c38.png)
+
+
+![image](https://user-images.githubusercontent.com/76440648/116746401-6e109300-a9ca-11eb-834a-90daac2ffdec.png)
+
+
 
 
 
@@ -121,8 +132,11 @@ For buprenorphine, a linear transduction model as described in Yassen et al. [1,
 
 ![image](https://user-images.githubusercontent.com/76440648/116604660-6aaed600-a8fc-11eb-983a-70284428cbc5.png)
 
+![image](https://user-images.githubusercontent.com/76440648/116746607-bdef5a00-a9ca-11eb-946a-6813d753169f.png)
 
-Here E and E0 are a patient’s minute ventilation volume (Vm) after and before the use of opioids, respectively. E0 was assumed to be 1. RL is the buprenorphine-occupied mu receptor, and Rtotal is the total amount of receptor (the sum of free, opioid-occupied, and naloxone-occupied receptors), which was assumed to be 1. The parameter α is the intrinsic activity of each opioid and takes a value between 0 and 1. The α values for buprenorphine was estimated to be 0.56 (coefficient of variation 5.6%), based on pharmacokinetic-pharmacodynamic analysis of respiratory depression in healthy volunteers [1]. Our model was able to reproduce clinical data showing buprenorphine-induced ventilation depression and naloxone-mediated reversal. See [Buprenorphine_Depression](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine/figs/Buprenorphine_IV_Naloxone_IV_Full_timepoints.pdf).
+
+
+Here V and V0 are a patient’s minute ventilation volume (Vm) after and before the use of opioids, respectively. V0 was assumed to be 1. RL is the buprenorphine-occupied mu receptor, and Rtotal is the total amount of receptor (the sum of free, opioid-occupied, and naloxone-occupied receptors), which was assumed to be 1. The parameter α is the intrinsic activity of each opioid and takes a value between 0 and 1. The α values for buprenorphine was estimated to be 0.56 (coefficient of variation 5.6%), based on pharmacokinetic-pharmacodynamic analysis of respiratory depression in healthy volunteers [1]. Our model was able to reproduce clinical data showing buprenorphine-induced ventilation depression and naloxone-mediated reversal. See [Buprenorphine_Depression](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine/figs/Buprenorphine_IV_Naloxone_IV_Full_timepoints.pdf).
 
 For fentanyl, it was estimated that the relationship between its concentration and the ventilation is non-linear and has different parameters for naïve vs chronic users [3].
 
