@@ -29,19 +29,18 @@ Fentanyl optimal binding parameters can be found here: [Fentanyl](https://github
 Carfentanil optimal binding parameters can be found here: [Carfentanil](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Carfentanil_parameters/CARFENTANIL_pars.txt). The full probability distribution of parameters estimated through uncertainty quantification  for Carfentanil can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Carfentanil_parameters/boot_pars.csv) 
 
 ## Naloxone 
-Naloxone optimal binding parameters can be found here: [Naloxone](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE_parameters/Naloxone_pars.txt). While the full probability distribution of parameters estimated through uncertainty quantification  for Fentanyl can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE_parameters/boot_pars.csv)
+Naloxone optimal binding parameters can be found here: [Naloxone](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE_parameters/NALOXONE_pars.txt). While the full probability distribution of parameters estimated through uncertainty quantification  for Naloxone can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE_parameters/boot_pars.csv)
  
 
 
 # Generating Clinical Simulation and Comparison Figures
 
 ## Buprenorphine Clinical Simulation
-To recreate the buprenorphine clinical simulation, run [Clinical_Comparison_Buprenorphine_IV_Naloxone_IV.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine/Clinical_Comparison_Buprenorphine_IV_Naloxone_IV.R) in [Clinical_Comparison_Buprenorphine/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine). The figure, automatically saved in [figs/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine/figs), will depict respiratory depression in response to 0.2mg buprenorphine followed by reversal by a 90-minute infusion of naloxone started 30 minutes after buprenorphine dosing.
 
+Code to be released. 
 ## Fentanyl Clinical Simulations
-To recreate the occupancy-ventilation curve and fentanyl clinical simulation figures run [IV_opioid.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/IV_opiod.R) in [Clinical_Comparison_Fentanyl/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl) and set the parser argument to either “Chronic” or “Naive”.  
-For example to produce the chronic figure: run Rscript IV_opiod.R -p “Chronic”. Figures will automatically be saved in [figs/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs).
 
+Code to be released. 
 
 # Receptor Binding Model
 In developing the mu receptor binding model, association and dissociation assays were conducted for each of the 9 opioid agonists and naloxone.  The binding model uses the following ordinary differential equation (ODE) to describe the system: 
