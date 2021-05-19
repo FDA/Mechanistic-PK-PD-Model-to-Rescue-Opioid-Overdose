@@ -29,7 +29,7 @@ Fentanyl optimal binding parameters can be found here: [Fentanyl](https://github
 Carfentanil optimal binding parameters can be found here: [Carfentanil](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Carfentanil_parameters/CARFENTANIL_pars.txt). The full probability distribution of parameters estimated through uncertainty quantification  for Carfentanil can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Carfentanil_parameters/boot_pars.csv) 
 
 ## Naloxone 
-Naloxone optimal binding parameters can be found here: [Naloxone](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE_parameters/NALOXONE_pars.txt). While the full probability distribution of parameters estimated through uncertainty quantification  for Naloxone can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE_parameters/boot_pars.csv)
+Naloxone optimal binding parameters can be found here: [Naloxone](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE/NALOXONE_pars.txt). While the full probability distribution of parameters estimated through uncertainty quantification  for Naloxone can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE/boot_pars.csv)
  
 
 
