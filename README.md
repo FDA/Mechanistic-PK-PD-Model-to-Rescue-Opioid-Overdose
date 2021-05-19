@@ -42,11 +42,6 @@ To recreate the buprenorphine clinical simulation, run [Clinical_Comparison_Bupr
 To recreate the occupancy-ventilation curve and fentanyl clinical simulation figures run [IV_opioid.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/IV_opiod.R) in [Clinical_Comparison_Fentanyl/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl) and set the parser argument to either “Chronic” or “Naive”.  
 For example to produce the chronic figure: run Rscript IV_opiod.R -p “Chronic”. Figures will automatically be saved in [figs/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs).
 
-## Remifentanil Clinical Comparison 
-
-To recreate the remifentanil clinical comparison figures run [IV_opioid.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil/IV_opioid.R) in [Clinical_Comparison_Remifentanil/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil). Figures will automatically be saved in [figs/](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Clinical_Comparison_Remifentanil/figs). 
-
- 
 
 # Receptor Binding Model
 In developing the mu receptor binding model, association and dissociation assays were conducted for each of the 9 opioid agonists and naloxone.  The binding model uses the following ordinary differential equation (ODE) to describe the system: 
@@ -187,13 +182,4 @@ Here VB and G are the baseline minute ventilation volume (L/min) and baseline sl
 4.	Yassen, A., et al., Mechanism-based pharmacokinetic-pharmacodynamic modelling of the reversal of buprenorphine-induced respiratory depression by naloxone : a study in healthy volunteers. Clin Pharmacokinet, 2007. 46(11): p. 965-80.
 5.	Administration, U.F.a.D. NARCAN Nasal Spray Label. 2015; Available from: https://www.accessdata.fda.gov/drugsatfda_docs/label/2015/208411lbl.pdf.
 6.	Olofsen, E., et al., Modeling the non-steady state respiratory effects of remifentanil in awake and propofol-sedated healthy volunteers. Anesthesiology, 2010. 112(6): p. 1382-95.
-7.	Babenco, H.D., P.F. Conard, and J.B. Gross, The pharmacodynamic effect of a remifentanil bolus on ventilatory control. Anesthesiology, 2000. 92(2): p. 393-8.
-8.	Minto, C.F., et al., Influence of age and gender on the pharmacokinetics and pharmacodynamics of remifentanil. I. Model development. Anesthesiology, 1997. 86(1): p. 10-23.
-9.	System, N.D.E.W. Unintentional Fentanyl Overdoses in New Hampshire: An NDEWS HotSpot Analysis. 2017; Available from: https://ndews.org/wordpress/files/2020/07/ndews-hotspot-unintentional-fentanyl-overdoses-in-new-hampshire-final-09-11-17.pdf.
-10.	Brockbals, L., et al., Time-Dependent Postmortem Redistribution of Opioids in Blood and Alternative Matrices. J Anal Toxicol, 2018. 42(6): p. 365-374.
-11.	Corsi, J.N. and J.L. Dragovic, Fatal overdoses involving carfentanil: A case series. J. Forensic Science and Medicine, 2019. 5(3): p. 147-150.
-12.	Health, N.O.o.S.O.o.R. Manual for Nurse Practitioners: Using a Computer-Based NaloxoneTraining Module To Prepare Community Members for Opioid-Associated Overdose Rescue. 2017.
-13.	Philip, K.E., et al., The accuracy of respiratory rate assessment by doctors in a London teaching hospital: a cross-sectional study. J Clin Monit Comput, 2015. 29(4): p. 455-60.
-14.	Hill, R., et al., Fentanyl depression of respiration: Comparison with heroin and morphine. Br J Pharmacol, 2020. 177(2): p. 254-266.
-15.	Voscopoulos, C.J., et al., Continuous noninvasive respiratory volume monitoring for the identification of patients at risk for opioid-induced respiratory depression and obstructive breathing patterns. J Trauma Acute Care Surg, 2014. 77(3 Suppl 2): p. S208-15.
 
