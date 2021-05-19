@@ -37,11 +37,10 @@ Naloxone optimal binding parameters can be found here: [Naloxone](https://github
 
 ## Buprenorphine Clinical Simulation
 
-Code to be released. [Buprenorphine_Simulation](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine/figs/Buprenorphine_IV_Naloxone_IV_Full_timepoints.pdf) 
+Code to be released. 
 ## Fentanyl Clinical Simulations
 
-Code to be released. [Naive_Simulation](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs/Naive_IFV_justp4.pdf)
-[Chronic Simulation](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs/Chronic_IFV_justp4.pdf)
+Code to be released.
 
 # Receptor Binding Model
 In developing the mu receptor binding model, association and dissociation assays were conducted for each of the 9 opioid agonists and naloxone.  The binding model uses the following ordinary differential equation (ODE) to describe the system: 
