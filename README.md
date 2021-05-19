@@ -31,7 +31,7 @@ Carfentanil optimal binding parameters can be found here: [Carfentanil](https://
 ## Remifentanil 
 Remifentanil optimal binding parameters can be found here: [Remifentanil](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Remifentanil_parameters/Remifentanil_pars.txt). The full probability distribution of parameters estimated through uncertainty quantification  for Fentanyl can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Remifentanil_parameters/boot_pars.csv)
 
-[Remifentanil_parms](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Remifentanil_parms/parmsAlgera2020.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone for the optimal scenario. 
+[Remifentanil_parms](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Remifentanil_parameters/parmsAlgera2020.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone for the optimal scenario. 
 
 ## Naloxone 
 Naloxone optimal binding parameters can be found here: [Naloxone](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Naloxone_parameters/Naloxone_pars.txt). While the full probability distribution of parameters estimated through uncertainty quantification  for Fentanyl can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Naloxone_parameters/boot_pars.csv)
