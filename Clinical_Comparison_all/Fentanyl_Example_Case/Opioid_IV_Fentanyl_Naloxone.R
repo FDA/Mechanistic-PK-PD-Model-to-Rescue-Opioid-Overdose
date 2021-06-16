@@ -297,7 +297,7 @@ plotlist1[[2]] = p5
 
 pall1<-grid.arrange(grobs=plotlist1,ncol=2)
 
-ggsave(paste0("figs/",patient_case,"IFV_Fentanyl_Naloxone.pdf"),pall1,width=8,height=6)
+ggsave(paste0("figs/",patien_case,"IFV_Fentanyl_Naloxone.pdf"),pall1,width=8,height=6)
 
 
 
