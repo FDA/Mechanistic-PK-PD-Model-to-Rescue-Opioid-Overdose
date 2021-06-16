@@ -5,6 +5,12 @@ following repeat IV fentanyl administration and demonstrate naloxone's ability t
 
 #Running the code
 
+Prior to running the model the C code [delaymymod.c](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Fentanyl_Example_Case/models/delaymymod.c) msut be complied
+
+**R CMD SHLIB delaymymod.c** 
+
+Then the code can be run as below:  
+
 **Rscript Opioid_IV_Fentanyl_Naloxone.R -p "patient_case"**
 
 For the example case: run Rscript Opioid_IV_Fentanyl_Naloxone.R -p "Naive". Fentanyl PKPD parameters required for the script are found in [Fentanyl_PK](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Fentanyl_Example_Case/Clinical_data/fentanylPK.csv) and study data for naive users can be found in [Naive](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Fentanyl_Example_Case/paper_digitized/A_Naive.csv). The combined ventilation figures for naive users given fentanyl alone and fentanyl followed by naloxone can be found in [Figs](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Clinical_Comparison_all/Fentanyl_Example_Case/figs)
