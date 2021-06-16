@@ -178,10 +178,7 @@ p4<-p4+ylab("Ventilation (% of baseline)") +
 				panel.grid.minor = element_blank(),
 				# Change axis line
 				axis.line = element_line(colour = "black")) +  ggtitle("Naive Users Fentanyl")
-#p4<-p4+geom_segment(aes(x=150,y=0, xend = 150, yend=.3),size=1,arrow=arrow(length=unit(.5,"cm")),col="black")
-#p4<-p4+geom_text(x=155,y=0.1,label="4mg Naloxone")
-#p4<-p4+geom_segment(aes(x=210,y=0, xend = 210, yend=.3),size=1,arrow=arrow(length=unit(.5,"cm")),col="black")
-#p4<-p4+geom_text(x=155,y=.1,label="4mg Naloxone")
+
 
 out_All_N<-c()
 for (ip in 0:2000) {
