@@ -83,7 +83,7 @@ For the PK of naloxone following intramuscular injection, a model with 2 transit
 
 
 
-![image](https://user-images.githubusercontent.com/76440648/116601521-9af47580-a8f8-11eb-98c6-c94f709a3fee.png)
+![image](https://user-images.githubusercontent.com/76440648/140965429-b5175186-66dc-4a5f-8289-e5207558c61f.png)
 
 
 
