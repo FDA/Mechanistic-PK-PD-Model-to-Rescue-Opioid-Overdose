@@ -1,23 +1,27 @@
-mainfol="../population_outputs_2mg_40tsh_delays/CA_AERO"
+#File 		Plot_Combined_Generic_EVZIO2mg.R
+#Author		John Mann
+#Date 		April 2022
+#Description	 Script to reproduce Figure 7 of Manuscript # 2022-329
+
+
+mainfol="../population_outputs_2mg_40tsh_delays/CA_IM" #Location of Cardiac Arrest occurence data
+
+
+
 
 system(paste0("mkdir -p ","results"))
 
 mainfol2="../outputs/results"
 
 
-
+#----- Dose conditions of interest
 alllfolders<-c(
 		"1.625_ligand_fentanyl_patient_chronic",
 		"2.965_ligand_fentanyl_patient_chronic",
 		"0.012_ligand_carfentanil_patient_chronic",
 				"0.02187_ligand_carfentanil_patient_chronic")	
 		
-		
-labelfol=c("carfentanil_0.012mg_60",		
-		"carfentanil_0.02187mg_60",
-		"fentanyl_1.625mg_60",
-	"fentanyl_2.965mg_60"
-)
+
 dose=c(rep(c(	"fentanyl_1.625","fentanyl_2.965",
 						"carfentanil_0.012","carfentanil_0.02187"),each=1))
 delay=c(rep(c(60),4))
@@ -33,26 +37,24 @@ for (fo in alllfolders) {
 	data2mg=dataEvzio2mg=c()
 	i=i+1
 	print("2mg")
-	data2mg=read.csv(sprintf("%s/All_CADo1PKReview_naloxone_formulation_Generic_conc_%s.csv",mainfol,fo))
-	Generic_1d=read.csv(sprintf("%s/Im_plot_Generic/%s_ypred1.csv",mainfol2,dose[i]))
-	Generic_2d=read.csv(sprintf("%s/Im_plot_Generic/%s_ypred2.csv",mainfol2,dose[i]))
+	data2mg=read.csv(sprintf("%s/All_CADo1PKReview_naloxone_formulation_Generic_conc_%s.csv",mainfol,fo)) # CA Population Data
+	Generic_1d=read.csv(sprintf("%s/Im_plot_Generic/%s_ypred1.csv",mainfol2,dose[i])) # Optimal Patient Physiology data No naloxone
+	Generic_2d=read.csv(sprintf("%s/Im_plot_Generic/%s_ypred2.csv",mainfol2,dose[i])) # Optimal Patient Physiology data	One dose naloxone	
 	
 	data2mg$Ndose=c("No naloxone", "2mg/2ml")
 	
 	
 	print("EVZIO")
 	
-	dataEvzio2mg=read.csv(sprintf("%s/All_CADo1PKReview_naloxone_formulation_EVZIO_conc_%s.csv",mainfol,fo))
-	EVZIO_1d=read.csv(sprintf("%s/Im_plot_EVZIO/%s_ypred1.csv",mainfol2,dose[i]))
-	EVZIO_2d=read.csv(sprintf("%s/Im_plot_EVZIO/%s_ypred2.csv",mainfol2,dose[i]))
+	dataEvzio2mg=read.csv(sprintf("%s/All_CADo1PKReview_naloxone_formulation_EVZIO_conc_%s.csv",mainfol,fo)) # CA Population Data
+	EVZIO_1d=read.csv(sprintf("%s/Im_plot_EVZIO/%s_ypred1.csv",mainfol2,dose[i])) #Optimal Patient Physiology data No naloxone
+	EVZIO_2d=read.csv(sprintf("%s/Im_plot_EVZIO/%s_ypred2.csv",mainfol2,dose[i])) #Optimal Patient Physiology data One dose naloxone
 	dataEvzio2mg$Ndose=c("No naloxone", "2mg/0.4ml")
 	
-	names(Generic_1d)<-c("x","time","Vent","O2","Blood","PaCO2","PBO2","PlasmaN","CBF")
-	print("A")
+	names(Generic_1d)<-c("x","time","Vent","O2","Blood","PaCO2","PBO2","PlasmaN","CBF") 
 	names(Generic_2d)<-names(Generic_1d)
 	names(EVZIO_1d)<-names(Generic_1d)
 	names(EVZIO_2d)<-names(Generic_1d)
-	print("B")
 	data2mg$type="b"
 	dataEvzio2mg$type="c"
 	
@@ -68,11 +70,13 @@ for (fo in alllfolders) {
 	EVZIO_1d$Ndose="No naloxone"
 	EVZIO_2d$Ndose="2mg/0.4ml"
 	
-	CABloodFlow<-1e-2
+	CABloodFlow<-1e-2 # Lower limit of blood flow for considering CA occurence.
 
-	print("C")
 	timeIndexUL_G1<-which(Generic_1d[,"time"]==max(Generic_1d[,"time"]))		
 	timeIndexUL_G2=timeIndexUL_E2=timeIndexUL_G1
+	
+	
+	#------- Cut off time course data if Cardiac Arrest occurs
 	
 	if (min(Generic_1d$Blood)<=CABloodFlow){
 		timeIndexULL_G1<-min(which(Generic_1d[,"Blood"]<=CABloodFlow))
@@ -94,21 +98,17 @@ if (min(EVZIO_2d$Blood)<=CABloodFlow){
 
 
 
-	All_time<-rbind(Generic_1d,Generic_2d,EVZIO_2d) # 0 naloxone is red
+	All_time<-rbind(Generic_1d,Generic_2d,EVZIO_2d) # 0 dose naloxone is same for Generic + EVZIO
 	
-	#write.csv(All_time,sprintf("outputs/All_times_%s.csv",i))
-	print("D")
 	A_data2mg<-data2mg[data2mg$Ndose %in% c("No naloxone","2mg/2ml"),]
 	A_data2mg$type[A_data2mg$Ndose=="No naloxone"]<-"a"
-	#A_data2mg$Ndose[A_data2mg$Ndose==1]<-"1G"
 	A_dataEvzio2mg<-dataEvzio2mg[dataEvzio2mg$Ndose %in% c("2mg/0.4ml"),] # Only need 1 0 dose bar 
 	
 	both=rbind(A_data2mg,A_dataEvzio2mg)
 	both$dose<-dose[i]
 	both$delay<-delay[i]
 	All_doses<-rbind(All_doses,both)
-	#both$Ndose<-"Naloxone Strategy"
-print("D")	
+
 	gg_color_hue <- function(n) {
 		hues = seq(15, 375, length = n + 1)
 		hcl(h = hues, l = 65, c = 100)[1:n]
@@ -116,6 +116,9 @@ print("D")
 	colorPalette = gg_color_hue(3)
 	both$Ndose <- factor(both$Ndose, levels = c("No naloxone","2mg/2ml","2mg/0.4ml"))
 	print(unique(both$type))
+	
+	#----- Create Population Cardiac Arrest Figures
+	
 	p[[i]]<-ggplot(both,aes(x = as.factor(Ndose),y = 100-rowYesCA,fill = type)) +
 	geom_bar(stat = "identity",
 	position = "dodge")+ylim(0, 100)+xlab("") + ylab("")+
@@ -125,13 +128,10 @@ print("D")
 						b=colorPalette[2], c=colorPalette[3]), labels = c("No naloxone","IM 2 mg/2 mL", "IM 2 mg/0.4 mL")) +
 		
 		theme(legend.position = "none",axis.text = element_text(size = 8))
-	ggsave(sprintf("results_new/plot_IV_2_21_%s.png",fo), p[[i]], width = 6, height = 4.5) 
+	ggsave(sprintf("results/CA_individual_%s.png",fo), p[[i]], width = 6, height = 4.5) 
 	
 
-	CABloodFlow<-1e-2
-	
-print("D")
-	
+	#------ Single Patient Ventilation Figures
 
 p2[[i]]<-ggplot(All_time,aes(x=time/60,y=Vent,color=type)) +
 			geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
@@ -150,9 +150,12 @@ p2[[i]]<-ggplot(All_time,aes(x=time/60,y=Vent,color=type)) +
 							b=colorPalette[2], c=colorPalette[3]), labels = c("No naloxone","IM 2 mg/2 mL", "IM 2 mg/0.4 mL")) +
 			theme_bw()+xlab("") +
 			theme(legend.position="none")+xlim(0, 15)
-	ggsave(sprintf("results_new/plot_Vent_IV_2_21_%s.png",fo), p2[[i]], width = 6, height = 4.5) 
+	ggsave(sprintf("results/plot_Ventilation_Individual_%s.png",fo), p2[[i]], width = 6, height = 4.5) 
 #	
 	print("p2")
+	
+	#----- Single Patient Arterial Oxygen Figures 
+	
 	p3[[i]]<-ggplot(All_time,aes(x=time/60,y=O2,color=type)) +
 			geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
 							y= O2))+
@@ -170,9 +173,13 @@ p2[[i]]<-ggplot(All_time,aes(x=time/60,y=Vent,color=type)) +
 						b=colorPalette[2], c=colorPalette[3]), labels = c("No naloxone","IM 2 mg/2 mL", "IM 2 mg/0.4 mL")) +
 		theme_bw()+xlab("") +
 			theme(legend.position="none")+xlim(0, 15)
-	ggsave(sprintf("results/plot_O2_IV_2_21_%s.png",fo), p3[[i]], width = 6, height = 4.5) 
+	ggsave(sprintf("results/plot_O2_Individual_%s.png",fo), p3[[i]], width = 6, height = 4.5) 
 	
 	print("p3")
+	
+	#------ Single Patient Total Blood Flow Figures
+
+
 	p4[[i]]<-ggplot(All_time,aes(x=time/60,y=Blood,color=type)) +
 			geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
 							y= Blood))+
@@ -196,10 +203,11 @@ p2[[i]]<-ggplot(All_time,aes(x=time/60,y=Vent,color=type)) +
 
 
 print("p4")
-	ggsave(sprintf("results/plot_Blood_IV_2_21_%s.png",fo), p4[[i]], width = 6, height = 4.5) 
+
+	ggsave(sprintf("results/plot_Blood_Individual_%s.png",fo), p4[[i]], width = 6, height = 4.5) 
 
 	
-	#------ Plasma Concentration
+	#------ Single Patient Naloxone Plasma Concentration Figures 
 p5[[i]]<-ggplot(All_time,aes(x=time/60,y=PlasmaN,color=type)) +
 geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
 						y= PlasmaN))+
@@ -218,6 +226,9 @@ geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
 		theme_bw()+xlab("") +
 		theme(legend.position="none")+xlim(0, 15)
 	
+
+#----- Single Patient Arterial CO2 Figures 
+
 p6[[i]]<-ggplot(All_time,aes(x=time/60,y=PaCO2,color=type)) +
 		geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
 						y= PaCO2))+
@@ -236,6 +247,7 @@ p6[[i]]<-ggplot(All_time,aes(x=time/60,y=PaCO2,color=type)) +
 		theme_bw()+xlab("") +
 		theme(legend.position="none")+xlim(0, 15)
 
+#----- Single Patient Cerebral Blood Flow Figures
 
 p7[[i]]<-ggplot(All_time,aes(x=time/60,y=CBF,color=type)) +
 		geom_line(data=Generic_1d[1:timeIndexUL_G1,],aes(x=time/60,
@@ -279,82 +291,19 @@ p8[[i]]<-ggplot(All_time,aes(x=time/60,y=PBO2,color=type)) +
 	
 }
 
-#pdf("plots_Allrev2.pdf", onefile = TRUE)
-#for (i in seq(length(p))) {
-#	do.call("grid.arrange", p[[i]])  
-#}
-#dev.off()
 
+#---- Combined CA figure
 ggsave(
-		filename = "All_plots_new2rev2.pdf", 
+		filename = "results/All_CA_plots.pdf", 
 		plot = marrangeGrob(p, nrow=1, ncol=4), 
 		width = 8, height = 4
 )
 
 
-#pall<-list(p2,p3,p4,p)
+
 library(gridExtra)
-#ggsave(
-#		filename = "All_plots_timecourserev2.pdf", 
-#		plot = grid.arrange(p2,p3,p4,p,nrow=4,ncol=4), 
-#		width = 8, height = 12
-#)
 
-Test1<-grid.arrange(p2[[1]],p3[[1]],
-		p4[[1]],p[[1]],ncol=1)
-
-ggsave("results/Test_1_all_rev2rev2.pdf",Test1)	
-
-Tests<-grid.arrange(p2[[1]]+ggtitle("Fentanyl 1.63mg \n A")+ylab("Minute Ventilation \n (L/min)")+theme(plot.title = element_text(size = 10))+
-theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10))+  theme(axis.ticks.x = element_blank(),
-		axis.text.x = element_blank()),
-		p2[[2]]+ggtitle("Fentanyl 2.97mg \n ")+ylab("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.x = element_blank(),
-				axis.text.x = element_blank()) +   theme(axis.ticks.y = element_blank(),
-				axis.text.y = element_blank()),
-		p2[[3]]+ggtitle("Carfentanil .012mg \n ")+ylab("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.x = element_blank(),
-				axis.text.x = element_blank()) +   theme(axis.ticks.y = element_blank(),
-				axis.text.y = element_blank()),
-		p2[[4]]+ggtitle("Carfentanil .022mg \n ")+ylab("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.x = element_blank(),
-						axis.text.x = element_blank()) +   theme(axis.ticks.y = element_blank(),
-						axis.text.y = element_blank(),#,
-				legend.position=c(.75,.75),legend.text = element_text(size=6),legend.background=element_blank(),legend.key.height= unit(.25, 'cm'))+labs(color=""),
-		p3[[1]]+ylab("Arterial Oxygen \n Partial Pressure (mmHg)")+theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10))+
-				ggtitle("B")+theme(plot.title = element_text(size = 10)) +   theme(axis.ticks.x = element_blank(),
-						axis.text.x = element_blank()),#+   theme(axis.ticks.y = element_blank(),
-						#axis.text.y = element_blank()) ,
-		p3[[2]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.x = element_blank(),
-				axis.text.x = element_blank())+   theme(axis.ticks.y = element_blank(),
-				axis.text.y = element_blank()),
-		p3[[3]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+  theme(axis.ticks.x = element_blank(),
-				axis.text.x = element_blank())+   theme(axis.ticks.y = element_blank(),
-				axis.text.y = element_blank()),
-		p3[[4]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+  theme(axis.ticks.x = element_blank(),
-				axis.text.x = element_blank())+   theme(axis.ticks.y = element_blank(),
-				axis.text.y = element_blank()),
-		p4[[1]]+ylab("Cardiac Output (L/min)")+xlab("Time (minutes)")+theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10))+ggtitle("C")+theme(plot.title = element_text(size = 10)),
-		p4[[2]]+xlab("Time (minutes)")+ylab("")+theme(axis.title.x=element_text(size=10))+
-				ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.y = element_blank(),
-						axis.text.y = element_blank()),
-		p4[[3]]+xlab("Time (minutes)")+ylab("")+theme(axis.title.x=element_text(size=10))+
-				ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.y = element_blank(),
-						axis.text.y = element_blank()),
-		p4[[4]]+xlab("Time (minutes)")+ylab("")+theme(axis.title.x=element_text(size=10))+
-				ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.y = element_blank(),
-						axis.text.y = element_blank()),
-		p[[1]]+ylab("Cardiac Arrest (%)")+ggtitle("D")+theme(plot.title = element_text(size = 10)),p[[2]]+ggtitle("")+theme(plot.title = element_text(size = 10)),
-		p[[3]]+ggtitle("")+theme(plot.title = element_text(size = 10)),p[[4]]+ggtitle("")+theme(plot.title = element_text(size = 10)),
-		ncol=4)
-		
-		
-		
-		
-		
-		
-		
-	ggsave("results/Test_all_rev_updatesrev2.pdf",Tests)	
-
-	
-	library(patchwork)
+library(patchwork)
 	
 	
 			p21<-p2[[1]]+ggtitle("Fentanyl 1.63mg \n A")+ylab("Minute Ventilation \n (L/min)")+theme(plot.title = element_text(size = 10))+
@@ -404,18 +353,23 @@ p33<-	p3[[3]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+ 
 	
 	p11<- p[[1]]+ylab("Cardiac Arrest (%)")+ggtitle("D")+
 			theme(plot.title = element_text(size = 10),axis.title.y=element_text(size=10),
-					legend.position=c(.65,.85),legend.text = element_text(size=6),
-					legend.background=element_blank(),legend.key.size= unit(.2, 'cm'))+labs(fill="")+	
-			labs(x="")
+					axis.text.x=element_text(size=6),
+					legend.position="none")+
+					#legend.background=element_blank(),legend.key.size= unit(.2, 'cm'))+labs(fill="")+	
+			labs(x="Naloxone Doses")
 	
 	p12<-p[[2]]+ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.y = element_blank(),
-			axis.text.y = element_blank())+labs(x="")
+			axis.text.x=element_text(size=6),
+			axis.text.y = element_blank())+labs(x="Naloxone Doses")
 	
 	p13<- p[[3]]+ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.y = element_blank(),
-			axis.text.y = element_blank())+labs(x="")
+			axis.text.x=element_text(size=6),
+			axis.text.y = element_blank())+labs(x="Naloxone Doses")
 	
 	p14<-p[[4]]+ggtitle("")+theme(plot.title = element_text(size = 10))+   theme(axis.ticks.y = element_blank(),
-			axis.text.y = element_blank())+labs(x="")
+			axis.text.y = element_blank(),
+			axis.text.x=element_text(size=6))+labs(x="Naloxone Doses")
+	
 	
 	
 	patch2<-p31+p32+p33+p34+plot_layout(ncol=4)
@@ -435,30 +389,9 @@ p33<-	p3[[3]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+ 
 			p31+a+p32+a+p33+a+p34+a+
 			p41+a+p42+a+p43+a+p44+a+
 			p11+a+p12+a+p13+a+p14+a+plot_layout(ncol=4) #plot_annotation(tag_levels = 'A')
-	ggsave("results/patchwork_test23rev2.pdf",patchall2)
+	ggsave("results/Manuscript_Figure_7.pdf",patchall2)
 	
-	Tests_Supp<-grid.arrange(p5[[1]]+ggtitle("Fentanyl 1.63mg \n A")+ylab("Plasma Naloxone (ng/ml)")+theme(plot.title = element_text(size = 10))+
-					theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10)),
-			p5[[2]]+ggtitle("Fentanyl 2.97mg \n B")+ylab("")+theme(plot.title = element_text(size = 10)),
-			p5[[3]]+ggtitle("Carfentanil 0.012mg \n C")+ylab("")+theme(plot.title = element_text(size = 10)),
-			p5[[4]]+ggtitle("Carfentanil 0.022mg \n D")+ylab("")+theme(plot.title = element_text(size = 10)),
-			p6[[1]]+ylab("PaCO2 (mmHg)")+theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10))+ggtitle("E")+theme(plot.title = element_text(size = 10)),
-			p6[[2]]+ylab("")+ggtitle("F")+theme(plot.title = element_text(size = 10)),
-			p6[[3]]+ylab("")+ggtitle("G")+theme(plot.title = element_text(size = 10)),
-			p6[[4]]+ylab("")+ggtitle("H")+theme(plot.title = element_text(size = 10)),
-			p7[[1]]+ylab("Brain Blood Flow (L/min)")+theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10))+ggtitle("I")+theme(plot.title = element_text(size = 10)),
-			p7[[2]]+ylab("")+ggtitle("J")+theme(plot.title = element_text(size = 10)),
-			p7[[3]]+ylab("")+ggtitle("K")+theme(plot.title = element_text(size = 10)),
-			p7[[4]]+ylab("")+ggtitle("L")+theme(plot.title = element_text(size = 10)),
-			p8[[1]]+ylab("PbO2 (mmHg)")+xlab("Time (minutes)")+theme(axis.title.x=element_text(size=10),axis.title.y=element_text(size=10))+ggtitle("M")+theme(plot.title = element_text(size = 10)),
-			p8[[2]]+xlab("Time (minutes)")+ylab("")+theme(axis.title.x=element_text(size=10))+ggtitle("N")+theme(plot.title = element_text(size = 10)),
-			p8[[3]]+xlab("Time (minutes)")+ylab("")+theme(axis.title.x=element_text(size=10))+ggtitle("O")+theme(plot.title = element_text(size = 10)),
-			p8[[4]]+xlab("Time (minutes)")+ylab("")+theme(axis.title.x=element_text(size=10))+ggtitle("P")+theme(plot.title = element_text(size = 10)),
-			ncol=4
-				)
-	
-				ggsave("results/Test_all_supprev2.pdf",Tests_Supp)	
-	
+
 	
 	
 				
@@ -469,8 +402,6 @@ p33<-	p3[[3]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+ 
 					scale_y_continuous(breaks=seq(0,7.5,2.5),limits=c(0,10))
 			p53<-	p5[[3]]+ggtitle("Carfentanil 0.012mg \n ")+ylab("")+theme(plot.title = element_text(size = 10),
 							axis.ticks.y = element_blank(),axis.text.y = element_blank(),axis.text.x = element_blank())+
-						#	legend.position=c(.3,.9),legend.text = element_text(size=6),legend.background=element_blank(),
-						#	legend.key.size= unit(.2, 'cm'))+labs(color="")+
 					scale_y_continuous(breaks=seq(0,7.5,2.5),limits=c(0,10))
 			p54<-	p5[[4]]+ggtitle("Carfentanil 0.022mg \n ")+ylab("")+theme(plot.title = element_text(size = 10),
 							axis.ticks.y = element_blank(),axis.text.y = element_blank(),axis.text.x = element_blank(),legend.position=c(.725,.65),legend.text = element_text(size=6),legend.background=element_blank(),
@@ -521,9 +452,8 @@ p33<-	p3[[3]]+ylab("")+ggtitle("")+theme(plot.title = element_text(size = 10))+ 
 			patchall3<-p51+a+p52+a+p53+a+p54+a+
 					p61+a+p62+a+p63+a+p64+a+
 					p71+a+p72+a+p73+a+p74+a+
-					p81+a+p82+a+p83+a+p84+a+plot_layout(ncol=4) #plot_annotation(tag_levels = 'A')
-			ggsave("results/patchwork_test24supprev2.pdf",patchall3)
+					p81+a+p82+a+p83+a+p84+a+plot_layout(ncol=4) 
+			ggsave("results/Supplemental_Manuscript_Figure.pdf",patchall3)
 			
 				
 
-#write.csv(All_doses,"All_data.csv")
