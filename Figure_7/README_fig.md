@@ -4,11 +4,11 @@
 # Requirements
 This code was developed with R version 3.3 and uses the following packages:
 
-optparse (version 1.4.4)
-ggplot2 (version 2.2.0)
-deSolve (version 1.14)
-gridExtra (version 2.2.1)
-FME (version 1.3.5)
+* optparse (version 1.4.4)
+* ggplot2 (version 3.1.1)
+* deSolve (version 1.10-5)
+* gridExtra (version 2.2.1)
+* FME (version 1.3.6.1)
 
 # Opioid Model Preparation
 The full opioid model can be found in: [OpioidModel](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/Figure_7/models/modelWithSimpleVentilatoryCollapse_IM/delaymymod.c)
