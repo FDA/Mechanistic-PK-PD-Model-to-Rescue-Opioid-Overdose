@@ -102,17 +102,14 @@ consider_PK_dis=args$disK
 
 formulation=args$formulation
 
-#Plotstr<-gsub(" ","",args$SupplementalPlot)
-#Plot_yn<-strsplit(Plotstr,",")[[1]]
+
 print("-----Produce supplemental figures?-----")
 if(args$patientid==2001){
 	Plot_yn<-"yes"
 }else(Plot_yn="no")
 print(Plot_yn)
 
-#print(consider_Par_dist)
-#consider_Par_dist="yes"
-#consider_delay_dist="yes"
+
 populationFolder=sprintf("outputs/Review_naloxone_formulation_%s_conc_%s_ligand_%s_patient_%s",formulation,concstr,opioid,patientType)
 
 system(paste0("mkdir -p ",populationFolder))	
@@ -126,7 +123,7 @@ print("------------")
 print(formulation)
 #----- PK parameters for opioid/naloxone formulation
 if(formulation=="EVZIO"){
-if(opioid=="fentanyl" ){#fentanyl
+if(opioid=="fentanyl" ){
 
 	parms<-c(F=.5704, kin=.008198,kout=.002,ktr=.00833, kout2=31.31 ,k1=.003,
 			k2=.001774,k12=.0032, 
@@ -217,7 +214,6 @@ if (random_dis=="no") { # PK populations for opioids (fentanyl or carfentanil)
 	population0=c()
 	if(consider_PK_dis=="yes" && opioid=="fentanyl"){
 population0=read.csv("log_dist/fentanyl_logdis.csv")
-#print(names(population0))
 }
 if(opioid=="fentanyl"){
 ABNcorect=read.csv("parameters/boot_pars_fentanyl.csv")
@@ -266,8 +262,7 @@ population0["B2"]<-ABN_B["B2"]
 population0["n2"]<-ABN_B["n2"]
 
 }
-#ssssss
-#read other parameters
+
 
 
 if (consider_Par_dist=="yes") {
@@ -285,7 +280,6 @@ for (opioid_doseidx in 1:length(uniqdose)){
 	print(paste("opioid dose=",uniqdose[opioid_doseidx],"mg"))
 	for (ipop in as.numeric(args$patientid)) {	
 if (consider_Par_dist=="yes") {patientidx=ipop}else{patientidx=1}
-#	delay
 if (consider_delay_dist=="yes") {
 	allpatients["initialdelay"]=initialdelayP[ipop]
 	delay=150#delayP[ipop]
@@ -293,13 +287,13 @@ if (consider_delay_dist=="yes") {
 	this.par<-unlist(allpatients[patientidx,])
 	truepar<-this.par[!names(this.par)=="initialdelay" & !names(this.par)=="Dose"] 
 	truepar["timeout"]<-300
-	#write.csv(truepar,file="test_new_git.csv")
-	
+
 	#---- Determine ventilation threshold in absence of opioids 
 	out=fundede(states=states,fulltimes=fulltimes,truepar=truepar,namesyout=namesyout)
 	stateidx<-match(names(states), colnames(out),nomatch=0)
 	states[stateidx!=0]<- out[dim(out)[1],stateidx]
-	threshold<-0.4*out[dim(out)[1],"Minute ventilation (l/min)"];
+	#---- Once ventilation hits 40% of baseline trigger naloxone administration (after initialdelay)
+	threshold<-0.4*out[dim(out)[1],"Minute ventilation (l/min)"]; 
 	
 	#---- Call helper function
 	pp<-patientWrapper(doseidx=opioid_doseidx,patientidx=patientidx,delay=delay,threshold=threshold)
