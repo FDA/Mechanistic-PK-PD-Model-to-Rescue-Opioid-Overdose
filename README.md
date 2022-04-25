@@ -2,7 +2,7 @@
 
 # Translational Model to Assess the Impact of Opioid Overdose and Naloxone Dosing on Respiratory Depression and Cardiac Arrest
 
-R code used to validate mechanistic PK-PD model of opioid overdose through simulation of overdose scenarios
+R code to utilize mechanistic PK-PD model of opioid overdose for simulation of overdose scenarios and cardiac arrest
 
 # Authors
 
@@ -24,7 +24,7 @@ Binding parameters (Kon, Koff and n) for naloxone and the opioid ligands can be 
 ## Fentanyl
 Fentanyl optimal binding parameters can be found here: [Fentanyl](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/Fentanyl_A_pars.txt). The full probability distribution of parameters estimated through uncertainty quantification for Fentanyl can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/boot_pars.csv)
 
-[Fentanyl_parms](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/parmsAlgera2020.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intranasal naloxone for the optimal scenario. 
+[Fentanyl_parms](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/parmsAlgera2020.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intramuscular naloxone for the optimal scenario. 
 
 ## Carfentanil
 
