@@ -24,13 +24,13 @@ Binding parameters (Kon, Koff and n) for naloxone and the opioid ligands can be 
 ## Fentanyl
 Fentanyl optimal binding parameters can be found here: [Fentanyl](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/Fentanyl_A_pars.txt). The full probability distribution of parameters estimated through uncertainty quantification for Fentanyl can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/boot_pars.csv)
 
-[Fentanyl_parms](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/parmsAlgera2020.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intramuscular naloxone for the optimal scenario. 
+[Fentanyl_parms](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Fentanyl_A_parameters/parmsFentanyl.R) contains the full set of binding and PK parameters necessary for simulating opioid overdose and subsequent rescue using intramuscular naloxone for the optimal scenario. 
 
 ## Carfentanil
 
 Carfentanil optimal binding parameters can be found here: [Carfentanil](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Carfentanil_parameters/CARFENTANIL_pars.txt). The full probability distribution of parameters estimated through uncertainty quantification for Carfentanil can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/Carfentanil_parameters/boot_pars.csv) 
 
-Carfentanil PK parameters utilized fentanyl parameters as a baseline and were modified to match the long half-life (~45 minutes) seen in clinical studies
+Carfentanil PK parameters utilized fentanyl parameters as a baseline and were modified to match the long half-life (~45 minutes) seen in clinical studies [4]
 
 ## Naloxone 
 Naloxone optimal binding parameters can be found here: [Naloxone](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE/NALOXONE_pars.txt). While the full probability distribution of parameters estimated through uncertainty quantification for Naloxone can be found in [boot_pars.csv](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Ligand_Data/NALOXONE/boot_pars.csv)
@@ -43,10 +43,10 @@ Naloxone optimal binding parameters can be found here: [Naloxone](https://github
 # Receptor Binding Model
 In developing the mu receptor binding model, association and dissociation assays were conducted for each of the 9 opioid agonists and naloxone.  The binding model uses the following ordinary differential equation (ODE) to describe the system: 
 
-dRL/dt=Kon* L^n*R-Koff*RL (1)
+dRL/dt=K<sub>on</sub>* L<sup>n</sup>*R-K<sub>off</sub>*RL (1)
 
 
-where L, R, and RL are free ligands (opioids or naloxone), free (unoccupied) mu receptors, and ligand-occupied receptors, respectively. Kon, Koff, and n are the association rate, dissociation rate, and the slope of the dose-effect relationship, respectively. The concentration of receptors is represented as fractions of the total receptor R_total. Assuming R_total is 1, it follows that R = 1 – RL, and, as such, no ODE is needed for the amount (fraction) of free receptor R. There is also no ODE for the ligand L, a simplification necessary to use fraction of receptors rather than real units for receptors in the ODE system, which is a requirement for virtual patients simulations [1]. Such a simplification assumes  there is minimal change of the free ligand concentration due to binding, which was supported by the observation that even at the lowest ligand concentration, only ~5% ligand was lost due to binding to mu receptors in our experimental systems (data not shown). 
+where L, R, and RL are free ligands (opioids or naloxone), free (unoccupied) mu receptors, and ligand-occupied receptors, respectively. K<sub>on</sub>, K<sub>off</sub>, and n are the association rate, dissociation rate, and the slope of the dose-effect relationship, respectively. The concentration of receptors is represented as fractions of the total receptor R_total. Assuming R_total is 1, it follows that R = 1 – RL, and, as such, no ODE is needed for the amount (fraction) of free receptor R. There is also no ODE for the ligand L, a simplification necessary to use fraction of receptors rather than real units for receptors in the ODE system, which is a requirement for virtual patients simulations [1]. Such a simplification assumes  there is minimal change of the free ligand concentration due to binding, which was supported by the observation that even at the lowest ligand concentration, only ~5% ligand was lost due to binding to mu receptors in our experimental systems (data not shown). 
 
 The parameters were estimated by fitting the model to the time course of association and dissociation data. Single point estimation of each parameter was obtained by fitting to the mean values of experimental data. The variability in experimental data and uncertainty in parameter estimation were captured and quantified by a boot strapping strategy developed earlier [2]. This resulted in 2000 parameter sets that describe the joint distribution of Kon, Koff, and n based on experimental data.
 
@@ -54,112 +54,56 @@ The parameters were estimated by fitting the model to the time course of associa
 
 Compartmental pharmacokinetic (PK) models for fentanyl [3] and carfentanil were used in this study. Briefly, a three-compartment was used to describe the time course of plasma concentration after an intravenous bolus injection of fentanyl and carfentanil. A biophase equilibrium model was used to characterize the transfer of ligands from the plasma to the effective compartment. 
 
-For the PK of naloxone following intramuscular (IM) administration, plasma concentration profiles after a 2 mg IM naloxone dose as documented in the FDA labels [x,xx], were used to construct a IM PK model for formulations of 2mg/2ml and 2mg/0.4ml naloxone. A transit compartment model with two transition compartments, 1 central and 1 peripheral compartment was used to describe the delay between the tissue and plasma concentration profile. 
+For the PK of naloxone following intramuscular (IM) administration, plasma concentration profiles after a 2 mg IM naloxone dose as documented in the FDA labels [5,6], were used to construct a IM PK model for formulations of 2mg/2ml and 2mg/0.4ml naloxone. A transit compartment model with two transition compartments, 1 central and 1 peripheral compartment was used to describe the delay between the tissue and plasma concentration profile. 
  The following system of ODEs was used to characterize the system.
 
 
-dT1/dt=Ktr*D*F*e^(-Ktr*t)-Ktr*T1 (2)
+dT1/dt=K<sub>tr</sub>*D*F*e<sup>(-K<sub>tr</sub>*t)</sup>-K<sub>tr</sub>*T1 (2)
 
-dT2/dt=Ktr*T1-Kin*T2 (3)
+dT2/dt=K<sub>tr</sub>*T1-K<sub>in</sub>*T2 (3)
 
-dP/dt=Kin/V*T2-CL/V*P+CLi/V*P2-CLi/V*P  (4)
+dP/dt=K<sub>in</sub>/V*T2-CL/V*P+CL<sub>i</sub>/V*P2-CL<sub>i</sub>/V*P  (4)
 
-dP2/dt=CLi/V2*P-CLi/V2*P2  (5)
+dP2/dt=CL<sub>i</sub>/V2*P-CL<sub>i</sub>/V2*P2  (5)
 
 
 
 
 
 
-Here D, T1, T2, P and P2 are the initial dose of IM naloxone, and drug concentrations in the 1st transit, the 2nd transit, the central compartment, and the peripheral compartment, respectively. F, Ktr, Kin, CL, CLi V and V2 are the bioavailability, transit rate, absorption rate, clearance, intercompartmental clearance, central volume of distribution, and peripheral volume of distribution respectively. The following optimal values were used based on model fitting: (insert optimal parameters)
+Here D, T1, T2, P and P2 are the initial dose of IM naloxone, and drug concentrations in the 1st transit, the 2nd transit, the central compartment, and the peripheral compartment, respectively. F, K<sub>tr</sub>, K<sub>in</sub>, CL, CL<sub>i</sub> V and V2 are the bioavailability, transit rate, absorption rate, clearance, intercompartmental clearance, central volume of distribution, and peripheral volume of distribution respectively. The following optimal values were used based on model fitting: (insert optimal parameters)
 
-#Physiological Models
+# Physiological Models
 
-The physiological component combines gas oxygen and carbon dioxide storage, metabolism, and exchange, as well as ventilatory control and blood flow control. It was implemented primarily based on the work of Magosso, Ursino and colleagues [x-x] with a few modifications to better recapitulate clinical data. These include:
+The physiological component combines gas oxygen and carbon dioxide storage, metabolism, and exchange, as well as ventilatory control and blood flow control. It was implemented primarily based on the work of Magosso, Ursino and colleagues [7-9] with a few modifications to better recapitulate clinical data. These include:
 
-Preventing the combined ventilatory drives from being zero to better match hyperoxic and normocapnic scenarios
+* Preventing the combined ventilatory drives from being zero to better match hyperoxic and normocapnic scenarios
 
-Reproducing ventilation responses to hypoxia under hypercapnia and normocapnia
+* Reproducing ventilation responses to hypoxia under hypercapnia and normocapnia
 
-Matching changes in cerebral blood flow due to changes in carbon dioxide partial pressure
+* Matching changes in cerebral blood flow due to changes in carbon dioxide partial pressure
 
-Allowing prolonged hypoxia to result in decreased cardiac output and eventual cardiac arrest.   	
+* Allowing prolonged hypoxia to result in decreased cardiac output and eventual cardiac arrest.   	
 
-#Pharmacodynamic Models
+# Pharmacodynamic Models
 
+For the pharmacodynamic (PD) component, similar to Ursino and Magosso model [7], we assume opioids binding to the opioid receptor can reduce all 3 ventilatory drives: 
+* the peripheral chemoreflex
+*  the central chemoreflex
+*  the wakefulness drive (basal respiratory activities)
 
+The original Magosso and Ursino model assumes a dose-response relationship between fentanyl plasma concentration and the degree of reduction in these drives [6]. To make this PD relationship more generally applicable, in our model, the reduction in these drives (relative to the baseline values) was assumed to be CAR<sup>P</sup>, where CAR is the fraction of opioid receptors bound by opioids and P is a scaling parameter (P1 for the wakefulness drive and P3 for both the central and peripheral chemoreflex drive). Of note, both the fractional ventilatory drive and CAR are values between 0 and 1. Parameters P1 and P3 were estimated through various clinical studies of fentanyl effects on ventilation, both for healthy opioid naïve volunteers and chronic opioid users [3, 10], who are assumed to have different P1 and P3 parameters. In addition, to account for the hysteresis between drug (opioid or naloxone) plasma concentrations and PD effects, we assume there is an effect compartment within which drug concentrations are equilibrated with the plasma compartment with a rate k1. For fentanyl, k1 was estimated from clinical data along with P1 and P3. For naloxone, k1 was estimated from a clinical study investigating naloxone-mediated reversal of opioid-induced respiratory depression [11]. For carfentanil, we assume an arbitrarily large k1 due to the lack of clinical data and to not underestimate its potency.
 
-# Simulate Clinical Studies for Fentanyl and Buprenorphine
 
-The receptor binding model was combined with PK models for opioids and/or naloxone to simulate clinical ventilation studies for buprenorphine [4] and fentanyl [3]. The fentanyl and buprenorphine PK models after IV bolus injection were described by 3-compartment models [3, 4] with following equations.
+# Simulate Opioid Overdose and Rescue (Figure 7) 
 
+For a full description of the Figure 7 simulation procedures see: [Simulation_Readme](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/README_fig.md).
 
-![image](https://user-images.githubusercontent.com/76440648/116604209-d2185600-a8fb-11eb-94e7-ba1dc9091989.png)
+The complete overdose simulation model combines all submodels including: the receptor binding model, the pharmacokinetic model, the physiological submodel, and the pharmacodynamic model to estimate the outcomes of opioid overdose scenarios in the absence and presence of different intramuscular naloxone formualations. 
 
+Overdose scenarios were based on real world fatal overdose data of approximately 500 fatal fentanyl overdose cases. The postmortem fentanyl distribution from this data set has a mean and standard deviation of 9.96 and 9.27 ng.ml respectively [12]. We used the mean (9.96 ng/mL) and one standard deviation above the mean (84.1% percentile; 19.3 ng/mL) of this fatal fentanyl overdose range and estimated the corresponding intravenous dose to be 1.63 ("medium dose") and 2.97 mg ("high dose"), respectively. This estimation assumed that significant postmortem fentanyl redistribution would not occur within this time window [13] For carfentanil we utilized a dose equivalence strategy to calculate its corresponding medium and high dose scenarios. In this strategy, the minimum dose required to induce cardiac arrest was calculated for both fentanyl and carfentanil. The ratio of the minimum cardiac arrest dose for carfentanil relative to that for fentanyl was multiplied by the medium and high fentanyl doses to derive the corresponding overdose scenarios for carfentanil. The calculated median and high overdose scenarios for carfentanil IV is 0.012 and 0.022 mg, respectively.  
 
-
-![image](https://user-images.githubusercontent.com/76440648/116603638-253dd900-a8fb-11eb-964a-64b609324ce1.png)
-
-
-
-![image](https://user-images.githubusercontent.com/76440648/116604366-04c24e80-a8fc-11eb-9f5b-ff5eec969274.png)
-
-
-
-
-![image](https://user-images.githubusercontent.com/76440648/116604448-24f20d80-a8fc-11eb-8ed3-e32f0b666fd7.png)
-
-
-
-
-
-Here C1, C2, C3 and E are opioid concentrations in the 1st (central), 2nd (peripheral), 3rd (peripheral), and effective compartments, respectively. K12, K21, K13, and K31 are distribution rates from the central to peripheral and the peripheral to central compartments, respectively. Kout is the elimination rate, and K1 is the biophase equilibration rate constant between the central and effective compartment. 
-
-The concentration in the effective compartment E can be used as L in equation 1 which, together with each ligand (opioid or naloxone)’s own kinetic binding parameters Kon, Koff, and n, can be used to derive the time course of the (fraction of) mu receptor -bound opioid RL.
-
-For buprenorphine, a linear transduction model as described in Yassen et al. [1, 4] was used to link the fraction of receptor bound by buprenorphine (RL) to the ventilation response with the following equation:
-
-
-
-![image](https://user-images.githubusercontent.com/76440648/116746607-bdef5a00-a9ca-11eb-946a-6813d753169f.png)
-
-
-
-Here V and V0 are a patient’s minute ventilation volume (Vm) after and before the use of opioids, respectively. V0 was assumed to be 1. RL is the buprenorphine-occupied mu receptor, and Rtotal is the total amount of receptor (the sum of free, opioid-occupied, and naloxone-occupied receptors), which was assumed to be 1. The parameter α is the intrinsic activity of each opioid and takes a value between 0 and 1. The α values for buprenorphine was estimated to be 0.56 (coefficient of variation 5.6%), based on pharmacokinetic-pharmacodynamic analysis of respiratory depression in healthy volunteers [1]. Our model was able to reproduce clinical data showing buprenorphine-induced ventilation depression and naloxone-mediated reversal. See [Buprenorphine_Depression](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Buprenorphine/figs/Buprenorphine_IV_Naloxone_IV_Full_timepoints.pdf).
-
-For fentanyl, it was estimated that the relationship between its concentration and the ventilation is non-linear and has different parameters for naïve vs chronic users [3].
-
-
-![image](https://user-images.githubusercontent.com/76440648/116605897-fffe9a00-a8fd-11eb-86b0-08e3ebc9df11.png)
-
-
-Here VB and V(t) are minute ventilation volume (mL/min) at baseline and after opioid treatment, respectively. C(t) is the opioid concentration in the effective compartment (E in equation 12 and 13), and C50 is the concentration that causes 50% reduction of ventilation. The parameter α combines receptor reserve and intrinsic ligand activity, and is assumed to be 1 for both chronic and naïve users [3]. The parameter C50 is 420 and 1140 ng/L for naïve and chronic users, respectively [3].
-
-To simulate competitive binding between opioid and naloxone we needed to reparametrize the above equation to use the fraction of opioid-bound mu receptor (LR). To achieve this goal, we took advantage of the well-known linear relationship between ventilation and carbon dioxide (CO2) at steady state [6]:
-
-
-![image](https://user-images.githubusercontent.com/76440648/116606088-363c1980-a8fe-11eb-8a22-d860c59991ea.png)
-
-
-Here V is the ventilation, G is the gain of the ventilatory control system, PeCO2 is the end-tidal CO2 pressure, and B is the extrapolated CO2 pressure where apnea would occur (apneic threshold) [6]. Opioids are known to be able to increase B, causing a parallel shift of the ventilation-PeCO2 curve. In addition, there are reports of opioids causing a reduction of the slope of the ventilation-PeCO2 curve, corresponding to a reduction of G [6]. In our work we found that, to fully account for the difference between naïve and chronic users, it is necessary to assume opioids have an effect on both G and B:
-
-
-![image](https://user-images.githubusercontent.com/76440648/116632614-985c4500-a925-11eb-992a-efd5c25a95af.png)
-
-
-
-![image](https://user-images.githubusercontent.com/76440648/116632658-af9b3280-a925-11eb-88c4-0138f45ec9f6.png)
-
-
-Here Bmax is the maximum increase of B due to the binding of drug to the mu receptor. RL is the fraction (between 0 and 1) of mu receptor bound by the drug, and P1 and P2 are two parameters that control the increase of the drug effects with increasing RL. Incorporating equations 16 and 17 into 15, we have
-
-
-![image](https://user-images.githubusercontent.com/76440648/116632799-f6892800-a925-11eb-94e6-fe0c6fa0c074.png)
-
-
-Here VB and G are the baseline minute ventilation volume (L/min) and baseline slope of the ventilation-PeCO2 curve without opioids, respectively. For the clinical study we are trying to simulate, VB is fixed at ~20 L/min [3], and the baseline G was estimated to be 0.42 L/min/mmHg [6]. To estimate the parameters P1, Bmax, and P2, we sampled a wide range of fentanyl concentrations C(t) and calculated the corresponding V(t) in equation 14, and then fitted equation 18 to V(t) (RL in equation 18 was calculated by using fentanyl mu receptor binding parameters in equation 1) to estimate the pharmacodynamic (PD) parameters P1, Bmax, P2. The resulting set of parameters are P1 = 5.2 (9), Bmax = 29.65 (20) mm Hg, P2 = 1.629 (2.365), with values in parentheses for chronic opioid users, and values outside of parentheses for naïve users. For both naïve and chronic users, P1 is much greater than P2, suggesting at lower opioid doses (small RL) the main pharmacological effect is the increase of B rather than decrease of G. Compared to naïve users, chronic opioid users have a smaller Bmax, suggesting a smaller ventilation depression at such dose range (low dose, small RL). At high opioid dose (RL towards 1), the high value of P1 for chronic users causes a rapid reduction of G and abrupt ventilation depression. Such a pattern can be seen in [Ventilation_vs_Occupancy](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs/simple_curves.pdf). This parametrized equation 18 can reproduce clinically observed ventilation data in the presence of various doses of fentanyl for both [naïve](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs/Naive_IFV_justp4.pdf) and [chronic](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Clinical_Comparison_all/Clinical_Comparison_Fentanyl/figs/Chronic_IFV_justp4.pdf) opioid users. 
-
-Of note, these parameters and experimental results are used to predict isohypercapnic ventilation, which may differ from the scenario wherein an individual is breathing room air (real-world conditions).  Additional work is ongoing to extend these equations to better describe such conditions.  
+In overdose scenarios we used both the typical patient (optimal parameters referenced above) and the patient populations in the simulations. For receptor binding parameters the uncertainty was captured in a joint distribution approximated by 2000 sets of parameters (see the section Receptor Binding above). For PK of fentanyl, we randomly sampled 2000 values for each parameter based on the published mean and standard deviation of fentanyl population PK model [3] assuming a log-normal distribution. For carfentanil, the mean PK parameters were estimated based on the limited human PK data avaialable, and the standard deviation across the population (inter-subject variability) was assumed to be the same as fentanyl. For naloxone products (Generic: IM 2 mg/2 mL, EVZIO: 2 mg/0.4 mL), we randomly sampled 2000 values of each PK parameter based on the population mean and standard deviation estimated through Bayesian Hierarchical Modeling. The primary outout of interest is the cardiac arrest percentage [Figure 7D](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/plot_combine_2mg_AND_EVZIO/results/Manuscript_Figure_7.pdf). We also captured the timecourse of several endpoints of interest including minute ventilation (Figure 7A), arterial partial pressure of oxygen (Figure 7B), and total cardiac output (Figure 7C). The values shown for these additional endpoints in Figure 7 are for the typical patient.
 
 
 ## References
@@ -167,7 +111,13 @@ Of note, these parameters and experimental results are used to predict isohyperc
 1.	Yassen, A., et al., Mechanism-based PK/PD modeling of the respiratory depressant effect of buprenorphine and fentanyl in healthy volunteers. Clin Pharmacol Ther, 2007. 81(1): p. 50-8.
 2.	Chang, K.C., et al., Uncertainty Quantification Reveals the Importance of Data Variability and Experimental Design Considerations for in Silico Proarrhythmia Risk Assessment. Frontiers in Physiology, 2017. 8(917).
 3.	Algera, M.H., et al., Tolerance to Opioid-Induced Respiratory Depression in Chronic High-Dose Opioid Users: A Model-Based Comparison With Opioid-Naive Individuals. Clin Pharmacol Ther, 2020.
-4.	Yassen, A., et al., Mechanism-based pharmacokinetic-pharmacodynamic modelling of the reversal of buprenorphine-induced respiratory depression by naloxone : a study in healthy volunteers. Clin Pharmacokinet, 2007. 46(11): p. 965-80.
-5.	FDA Label Intransal Naloxone
-6.	Olofsen, E., et al., Modeling the non-steady state respiratory effects of remifentanil in awake and propofol-sedated healthy volunteers. Anesthesiology, 2010. 112(6): p. 1382-95.
-
+4.	Minkowski, C.P., et al., Differential response to IV carfentanil in chronic cocaine users and healthy controls. Addict Biol, 2012. 17(1): p. 149-55.
+5.	US FDA label for naloxone hydrochloride injection 1988; Available from: https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=236349ef-2cb5-47ca-a3a5-99534c3a4996&type=display.
+6.	USFDA. Label for EVZIO Auto-Injector for intramuscular or subcutaneous use, 2 mg. 2016; Available from: https://www.accessdata.fda.gov/drugsatfda_docs/label/2016/209862lbl.pdf.
+7. Magosso, E., M. Ursino, and J.H. van Oostrom, Opioid-induced respiratory depression: a mathematical model for fentanyl. IEEE Trans Biomed Eng, 2004. 51(7): p. 1115-28.
+8.	Ursino, M., E. Magosso, and G. Avanzolini, An integrated model of the human ventilatory control system: the response to hypercapnia. Clin Physiol, 2001. 21(4): p. 447-64.
+9.	Ursino, M., E. Magosso, and G. Avanzolini, An integrated model of the human ventilatory control system: the response to hypoxia. Clin Physiol, 2001. 21(4): p. 465-77.
+10.	Stoeckel, H., et al., Plasma fentanyl concentrations and the occurrence of respiratory depression in volunteers. Br J Anaesth, 1982. 54(10): p. 1087-95.
+11.	Yassen, A., et al., Mechanism-based pharmacokinetic-pharmacodynamic modelling of the reversal of buprenorphine-induced respiratory depression by naloxone : a study in healthy volunteers. Clin Pharmacokinet, 2007. 46(11): p. 965-80.
+12.	NDEWS. Unintentional Fentanyl Overdoses in New Hampshire: An NDEWS HotSpot Analysis. 2017; Available from: https://ndews.org/wordpress/files/2020/07/ndews-hotspot-unintentional-fentanyl-overdoses-in-new-hampshire-final-09-11-17.pdf
+13.	Brockbals, L., et al., Time-Dependent Postmortem Redistribution of Opioids in Blood and Alternative Matrices. J Anal Toxicol, 2018. 42(6): p. 365-374.
