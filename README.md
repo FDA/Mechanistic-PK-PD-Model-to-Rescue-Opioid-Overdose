@@ -1,4 +1,4 @@
-﻿#Update In Progress
+
 
 # Translational Model to Assess the Impact of Opioid Overdose and Naloxone Dosing on Respiratory Depression and Cardiac Arrest
 
@@ -97,7 +97,7 @@ The original Magosso and Ursino model assumes a dose-response relationship betwe
 
 # Simulate Opioid Overdose and Rescue (Figure 7) 
 
-For a full description of the Figure 7 simulation procedures see: [Simulation_Readme](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/README_fig.md).
+For a full description of the Figure 7 simulation procedures see: [Simulation_Readme](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/README.md).
 
 The complete overdose simulation model combines all submodels including: the receptor binding model, the pharmacokinetic model, the physiological submodel, and the pharmacodynamic model to estimate the outcomes of opioid overdose scenarios in the absence and presence of different intramuscular naloxone formualations. 
 
