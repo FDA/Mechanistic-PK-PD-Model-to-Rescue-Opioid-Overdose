@@ -112,6 +112,7 @@ static double parms[106];
 #define starttime parms[105]
 double CA_o2_happen=0;
 double CA_co2_happen=0;
+// assisting function 
 double* calc_intermediate(double im11,double im12,double im13,double im14,double im15,double im16,double im18,double im19,double im25,double im26,double im27){
 	//	y[11]=im11;y[12]=im12;y[13]=im13;y[14]=im14;y[15]=im15;y[16]=im16;y[18]=im18;y[19]=im19;
 
