@@ -11,7 +11,7 @@ This code was developed with R version 3.3 and uses the following packages:
 * FME (version 1.3.6.1)
 
 # Opioid Model Preparation
-The full opioid model can be found in: [OpioidModel](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/Figure_7/models/modelWithSimpleVentilatoryCollapse_IM/delaymymod.c)
+The full opioid model can be found in: [OpioidModel](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/models/modelWithSimpleVentilatoryCollapse_IM/delaymymod.c)
 
 This model combines the in vitro binding parameters for fentanyl derivatives and naloxone with the pharmacokinetic, physiological, and pharmacodynamic model components to simulate opioid overdose and subsequent cardiac arrest or rescue.
 
@@ -19,7 +19,7 @@ This model combines the in vitro binding parameters for fentanyl derivatives and
 
 ## Simulating Overdose and Response
 
-To run the code first compile the opioid model: delaymymod.c from the [model folder](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/Figure_7/models/modelWithSimpleVentilatoryCollapse_IM/)
+To run the code first compile the opioid model: delaymymod.c from the [model folder](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Figure_7/models/modelWithSimpleVentilatoryCollapse_IM)
 with the command:  R CMD SHILB delaymymod.c
 
 The four shell scripts:
