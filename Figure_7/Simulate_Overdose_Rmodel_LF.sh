@@ -8,7 +8,7 @@
 #$ -R y
 #$ -l h_vmem=2G
 #$ -l h_rt=24:00:00
-#$ -t 1-2001
+#$ -t 1-4002
 #$ -o NULL
 
 FORMULATION=(Generic)
