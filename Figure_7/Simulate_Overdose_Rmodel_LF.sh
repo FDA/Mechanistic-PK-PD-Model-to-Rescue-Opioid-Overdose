@@ -11,7 +11,7 @@
 #$ -t 1-4002
 #$ -o NULL
 
-FORMULATION=(Generic)
+FORMULATION=(Generic EVZIO)
 NFormulation=${#FORMULATION[@]}
 IDX=$(((SGE_TASK_ID-1)/NFormulation))
 PATIENTIDX=$((IDX+1))
