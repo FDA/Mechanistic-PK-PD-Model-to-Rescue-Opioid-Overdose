@@ -54,7 +54,7 @@ After generating these output files run:
 
 [population_calcu.sh](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/population_calcu.sh) 
 
-which calls population_calcu_CA for each of the 8 scenarios corresponding to the different opioids, doses, and naloxone formulations and calculates the total Cardiac arrest percentage and mean rescue times. 
+which calls [population_calcu_CA_Dose.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/population_calcu_CA_Dose.R) for each of the 8 scenarios corresponding to the different opioids, doses, and naloxone formulations and calculates the total Cardiac arrest percentage and mean rescue times. 
 
 Running [CA_RS.sh](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/CA_RS.sh) calls 
 [Randome_population_calcu_CA_Dose.R](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/Randome_population_calcu_CA_Dose.R)for the same 8 scenarios produces Cardiac arrest percentage and rescue data but also resamples the total population space to generate median and 95% CI of the cardiac arrest percentage. 
