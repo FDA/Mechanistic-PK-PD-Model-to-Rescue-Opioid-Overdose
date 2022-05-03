@@ -16,6 +16,7 @@ This code was developed with R version 3.6.0 and uses the following packages:
 *	deSolve (version 1.10-5)
 *	gridExtra (version 2.2.1)
 *	FME (version 1.3.6.1)
+*	patchwork (version 1.1.1)
 
 # Binding Parameters 
 
