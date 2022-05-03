@@ -132,8 +132,8 @@ for(i in 1:2){
 rownames(Rescue_Medians)<-c("0","1")
 
 
-system(paste0("mkdir -p ",sprintf("%s/CA_AERO",foldermainoutput)))
-system(paste0("mkdir -p ",sprintf("%s/barplots_AERO",foldermainoutput)))
+system(paste0("mkdir -p ",sprintf("%s/CA_IM",foldermainoutput)))
+system(paste0("mkdir -p ",sprintf("%s/barplots_IM",foldermainoutput)))
 system(paste0("mkdir -p ",sprintf("%s/barplots_Errorbar",foldermainoutput)))
 
 
@@ -185,11 +185,11 @@ CADo_df<-CADo_df[CADo_df$Ndose %in% c("No dose","1-dose"),]
 if (iran==1) {
 	
 	CADo_dfmean=CADo_df
-	write.csv(Rescue_Medians,sprintf("%s/CA_AERO/%s_Rescue_Times_ligand_2_%s.csv",foldermainoutput,iran,iifo1))
-	write.csv(CADo_df2,sprintf("%s/CA_AERO/%s_CADo1PK%s.csv",foldermainoutput,iran,iifo1))
+	write.csv(Rescue_Medians,sprintf("%s/CA_IM/%s_Rescue_Times_ligand_2_%s.csv",foldermainoutput,iran,iifo1))
+	write.csv(CADo_df2,sprintf("%s/CA_IM/%s_CADo1PK%s.csv",foldermainoutput,iran,iifo1))
 	
 
-png(file=sprintf("%s/barplots_AERO/%s_p0_%s.png",foldermainoutput,iran,iifo1),width=800, height=800)
+png(file=sprintf("%s/barplots_IM/%s_p0_%s.png",foldermainoutput,iran,iifo1),width=800, height=800)
 par(mar = c(6, 8, 2, 2))
 p1=barplot(CADo_df$rowYesCA,ylim=c(0,100),
 		names=CADo_df$Ndose,cex.axis=2,cex.names=2,cex.lab=3,col=c("darkblue"),las = 1)
@@ -219,7 +219,7 @@ print("-----CA-------")
 
 print(CADo_df)
 
-write.csv(CADo_dfmean,sprintf("%s/CA_AERO/All_CADo1PK%s.csv",foldermainoutput,iifo1))
+write.csv(CADo_dfmean,sprintf("%s/CA_IM/All_CADo1PK%s.csv",foldermainoutput,iifo1))
 
 
 }
