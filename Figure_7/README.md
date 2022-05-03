@@ -9,6 +9,7 @@ This code was developed with R version 3.6 and uses the following packages:
 * deSolve (version 1.10-5)
 * gridExtra (version 2.2.1)
 * FME (version 1.3.6.1)
+* patchwork (version 1.1.1)
 
 The model is designed to be run in a linux environment with a high performance computing cluster (HPC) using the Sun Grid Enginer (SGE) batch queuing system. In this system shell scripts are submitted with the command qsub 'shell_script_name.sh'
 
