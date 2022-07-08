@@ -1,5 +1,8 @@
 ﻿# Instructions to Generate Cardiac Arrest Data from Opioid Overdose Simulation
 
+This code is designed to create Figure 7 of mechnistic PK-PD model manuscript. The full article can be found here: 
+
+https://ascpt.onlinelibrary.wiley.com/doi/abs/10.1002/cpt.2696
 
 # Requirements
 This code was developed with R version 3.6 and uses the following packages:
