@@ -27,7 +27,7 @@ This model combines the in vitro binding parameters for fentanyl derivatives and
 ## Simulating Overdose and Response
 
 To run the code first compile the opioid model: delaymymod.c from the [model folder](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/tree/main/Figure_7/models/modelWithSimpleVentilatoryCollapse_IM)
-with the command:  R CMD SHILB delaymymod.c
+with the command:  R CMD SHLIB delaymymod.c
 
 The four shell scripts:
 [Simulate_Overdose_Rmodel_LC.sh](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/Simulate_Overdose_Rmodel_LC.sh)
