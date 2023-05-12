@@ -2,7 +2,9 @@
 
 # Translational Model to Assess the Impact of Opioid Overdose and Naloxone Dosing on Respiratory Depression and Cardiac Arrest
 
-R code to utilize mechanistic PK-PD model of opioid overdose for simulation of overdose scenarios and cardiac arrest
+R code to utilize mechanistic PK-PD model of opioid overdose for simulation of overdose scenarios and cardiac arrest as published in: 
+
+[Mann et al.](https://pubmed.ncbi.nlm.nih.gov/35766413/)
 
 Codes and results for Intranasal Repeat Dosing Study can be found in the Naloxone_JAMA branch. 
 
@@ -98,7 +100,9 @@ For the pharmacodynamic (PD) component, similar to Ursino and Magosso model [7],
 The original Magosso and Ursino model assumes a dose-response relationship between fentanyl plasma concentration and the degree of reduction in these drives [6]. To make this PD relationship more generally applicable, in our model, the reduction in these drives (relative to the baseline values) was assumed to be CAR<sup>P</sup>, where CAR is the fraction of opioid receptors bound by opioids and P is a scaling parameter (P1 for the wakefulness drive and P3 for both the central and peripheral chemoreflex drive). Of note, both the fractional ventilatory drive and CAR are values between 0 and 1. Parameters P1 and P3 were estimated through various clinical studies of fentanyl effects on ventilation, both for healthy opioid naïve volunteers and chronic opioid users [3, 10], who are assumed to have different P1 and P3 parameters. In addition, to account for the hysteresis between drug (opioid or naloxone) plasma concentrations and PD effects, we assume there is an effect compartment within which drug concentrations are equilibrated with the plasma compartment with a rate k1. For fentanyl, k1 was estimated from clinical data along with P1 and P3. For naloxone, k1 was estimated from a clinical study investigating naloxone-mediated reversal of opioid-induced respiratory depression [11]. For carfentanil, we assume an arbitrarily large k1 due to the lack of clinical data and to not underestimate its potency.
 
 
-# Simulate Opioid Overdose and Rescue (Figure 7) 
+# Simulate Opioid Overdose and Rescue (Mann et al. Figure 7) 
+
+
 
 For a full description of the Figure 7 simulation procedures see: [Simulation_Readme](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opiod-Overdose/blob/main/Figure_7/README.md).
 
