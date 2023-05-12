@@ -4,6 +4,8 @@
 
 R code to utilize mechanistic PK-PD model of opioid overdose for simulation of overdose scenarios and cardiac arrest
 
+Codes and results for Intranasal Repeat Dosing Study can be found in the Naloxone_JAMA branch. 
+
 # Authors
 
 John Mann, Mohammadreza Samieegohar, Xiaomei Han, Anik Chaturbedi, Farzad Ahmadi, Zhihua Li
