@@ -2,7 +2,7 @@
 
 # Translational Model to Assess the Repeat Dosing of Naloxone and Fentanyl Overdose
 
-R code to utilize mechanistic PK-PD model of opioid overdose for simulation of overdose scenarios and cardiac arrest with 
+R code to utilize mechanistic PK-PD model of opioid overdose for simulation of overdose scenarios and cardiac arrest with repeat naloxone dosing.
 
 # Authors
 
