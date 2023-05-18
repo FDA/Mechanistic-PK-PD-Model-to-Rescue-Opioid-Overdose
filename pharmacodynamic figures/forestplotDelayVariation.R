@@ -1,0 +1,161 @@
+#last edited by: Anik Chaturbedi
+#on: 2023-05-16
+
+#load necessary libraries & scripts====
+library(ggplot2)
+library(grid)
+library(forestplot)
+library(dplyr)
+library(optparse)
+
+#get inputs========================================================================================================================================================================================================================================================================
+parser<-OptionParser()
+parser<-add_option(parser, c("-a", "--opioid"), default ="fentanyl",type="character",help="opioid used to induce respiratory depression (options: fentanyl, carfentanil, sufentanil)")
+parser<-add_option(parser, c("-b", "--opioidDoseToPlot"), default ="2.965",type="numeric",help="opioid concentration (in mg) (options: 1.625, 2.965, 0.012, 0.02187)")
+parser<-add_option(parser, c("-c", "--antagonist"), default ="naloxone",type="character",help="antagonist used to rescue from opioid induced respiratory depression (options: naloxone, nalmefene)")
+parser<-add_option(parser, c("-d", "--antagonistAdministrationRouteAndDose"), default ="IN4",type="character",help="antagonist administration route and dose in mg (options: IN4, IM2EVZIO, IM2Generic, IM5ZIMHI, IVMultipleDoses, IV2, IVBoyer, IM10)")
+parser<-add_option(parser, c("-e", "--subjectType"), default ="chronic",type="character",help="type of subject (options: naive, chronic)")
+parser<-add_option(parser, c("-f", "--subjectIndex"), default ="2001",type="numeric",help="subject index [decides what parameter set to use among population parameter sets](options: 1-2001, 2001 is the 'average' patient)")
+parser<-add_option(parser, c("-g", "--varyInitialDelayInNaloxoneAdministration"), default ="no",type="character",help="whether to randomly vary the initial delay in administration among subjects in a population")
+parser<-add_option(parser, c("-i", "--useOpioidPKPopulation"), default ="yes",type="character",help="whether to use opioid PK parameter distribution while simulating population")
+parser<-add_option(parser, c("-j", "--antagonistAdministrationTimeCase"), default ="",type="character",help="which antagonist administration start time case to be used (options: _30_, , _180_, _300_, _600_, SimultaneousOpioidAndAntagonist, NoAntagonistDelay, DelayedOpioid)")
+parser<-add_option(parser, c("-k", "--dispersionMetric"), default ="IQR",type="character",help="what dispersion metric to use after sampling (options: IQR, 90% CI, 95% CI)")
+parser<-add_option(parser, c("-l", "--numberOfSampling"), default ="2500",type="numeric",help="numberOfSampling")
+parser<-add_option(parser, c("-m", "--numberOfSubjectsSelected"), default ="200",type="numeric",help="numberOfSubjectsSelected")
+parser<-add_option(parser, c("-n", "--productInputDate1"), default ="2022-09-15",type="character",help="productInputDate1")
+parser<-add_option(parser, c("-o", "--subjectAge"), default ="adult",type="character",help="age of subject (options: adult, 10YearOld)")
+inputs<-parse_args(parser)
+
+#get case names and dates to plot====
+productsToPlot=c(inputs$antagonistAdministrationRouteAndDose,"IVMultipleDoses")
+productInputDatesToPlot=c(Sys.Date(), Sys.Date())
+if (inputs$opioid=="fentanyl"){
+	opioidDosesToPlot=c(1.625, 2.965)
+	chosenPalette=c("#800080", "#00AFBB") 
+}else if (inputs$opioid=="carfentanil"){
+	opioidDosesToPlot=c(0.012, 0.02187)
+	chosenPalette=c("#000080", "#ff1493") 
+}
+delaysToPlot=c(30, 60, 180, 300, 600)
+
+#get all product namses for which data is avaiable in "output/"====
+allOutputFolders=Sys.glob("output/*")
+allOutputCases=gsub("output/", "", allOutputFolders)
+allOutputCases <- allOutputCases[allOutputCases != "forestPlots"] #remove logfiles
+outputFolder=sprintf("output/forestPlots/%s", Sys.Date())
+system(paste0("mkdir -p ",outputFolder))
+
+#get productsToPlot===
+allData=c()
+for (productToPlot in productsToPlot) {	
+	for (opioidDoseToPlot in opioidDosesToPlot){ #not needed if all opioid doses for each opioid are being plotted
+		for (delayToPlot in delaysToPlot){ #not needed if all delays for each opioid dose case are being plotted
+			#get all filepaths for this product====
+			productInputDate=productInputDatesToPlot[match(productToPlot, productsToPlot)]
+			
+			#read data====
+			if (delayToPlot==60){
+				delayPhrase=""
+			}else {
+				delayPhrase=paste0("_",delayToPlot,"_")
+			}
+			modelOutputFolder=sprintf("%s_%s_%s_%s", inputs$opioid, opioidDoseToPlot, inputs$subjectType, inputs$subjectAge)
+			filePath<-Sys.glob(
+					sprintf("output/%s/populationOutput%s%s/%s/CA/IQR/tables/%s_%s_%s_numberOfSampling%s_sampledPopulationSize%s.csv", 
+							productToPlot, delayPhrase, productInputDate, modelOutputFolder, inputs$opioid, opioidDoseToPlot, inputs$subjectType, inputs$numberOfSampling, inputs$numberOfSubjectsSelected))
+			data=read.csv(filePath)[,c("antagonistDosesLabels","Percentage25","Percentage50","Percentage75")]
+			
+			data=rbind(cbind(antagonistDosesLabels="No naloxone",
+							data[1,2:4], 
+							antagonistRouteAndDose="No naloxone",
+							delay="No naloxone", 
+							opioid=sprintf("%s", inputs$opioid), 
+							opioidDoseToPlot=sprintf("%s", opioidDoseToPlot), 
+							antagonistDoseIndex=1),
+					
+					cbind(data[2,], 
+							antagonistRouteAndDose=productToPlot,
+							delay=sprintf("%s", delayToPlot/60), 
+							opioid=sprintf("%s", inputs$opioid), 
+							opioidDoseToPlot=sprintf("%s", opioidDoseToPlot), 
+							antagonistDoseIndex=2))
+			
+			#bind all data====
+			allData=rbind(allData, data)
+		}
+	} 
+}
+
+#change the product names====
+allData$antagonistRouteAndDose[allData$antagonistRouteAndDose=="IN4"]="Intranasal 4 mg"
+allData$antagonistRouteAndDose[allData$antagonistRouteAndDose=="IVBoyer"]="Intravenous repeat dosing"
+allData$antagonistRouteAndDose[allData$antagonistRouteAndDose=="IVMultipleDoses"]="Intravenous 0.04 mg"
+
+antagonistRouteAndDoses=unique(allData$antagonistRouteAndDose)
+allData$antagonistRouteAndDose <- factor(allData$antagonistRouteAndDose, ordered=TRUE, levels = c( "No naloxone", 
+				antagonistRouteAndDoses[antagonistRouteAndDoses!="No naloxone" & antagonistRouteAndDoses!="Intravenous 0.04 mg"],
+				"Intravenous 0.04 mg"))
+allData$delay <- factor(allData$delay, ordered=TRUE, levels = c("0.5", "1", "3", "5", "10", "No naloxone"))
+
+p=ggplot(data=allData, aes(
+						y=delay, 
+						x=Percentage50, xmin=Percentage25, xmax=Percentage75)) +
+		facet_grid(rows = vars(antagonistRouteAndDose), scales = "free", space = "free") +
+		geom_point(aes(shape= opioidDoseToPlot,col=opioidDoseToPlot)) + 
+		geom_errorbarh(aes(col=opioidDoseToPlot),height=0.2) +
+		labs(x='Percent of virtual patients experiencing cardiac arrest', y = 'Delay in naloxone administration (min)') +
+		scale_x_continuous(limits=c(0, 100), breaks=seq(0, 100, 10)) +
+		scale_colour_manual(values=chosenPalette)+
+		theme_bw()
+
+if (inputs$antagonistAdministrationRouteAndDose=="IN4"){
+	p= p + theme(legend.direction = "vertical",
+			legend.position = "none",    
+			legend.background=element_rect(fill = alpha("white", 0)),  
+			panel.background = element_rect(fill = NA, color = "black"),
+			panel.border = element_blank(),
+			axis.line = element_line(colour = "black"),
+			axis.title.x=element_text(size=10,  family="Calibri", color="black", face="bold"),
+			axis.title.y=element_blank(),
+			axis.text.x = element_text(size=10,  family="Calibri", color="black"),
+			axis.text.y = element_blank(),
+			axis.ticks = element_line(color = "black"),
+			strip.text.y = element_blank(),
+			text=element_text(size=10,  family="Calibri"))
+	ggsave(sprintf("%s/%s_%s_Delay.svg", outputFolder, inputs$opioid, inputs$antagonistAdministrationRouteAndDose), 
+			p, height = 3, width = 5)
+}else {
+	if (inputs$opioid=="fentanyl"){
+		p= p + theme(legend.direction = "vertical",
+				legend.position = "none",    
+				legend.background=element_rect(fill = alpha("white", 0)),  
+				panel.background = element_rect(fill = NA, color = "black"),
+				panel.border = element_blank(),
+				axis.line = element_line(colour = "black"),
+				axis.title.x=element_blank(),
+				axis.title.y=element_blank(),
+				axis.text.x = element_text(size=10,  family="Calibri", color="black"),
+				axis.text.y = element_blank(),
+				axis.ticks = element_line(color = "black"),
+				strip.text.y = element_blank(),
+				text=element_text(size=10,  family="Calibri"))
+		ggsave(sprintf("%s/%s_%s_Delay.svg", outputFolder, inputs$opioid, inputs$antagonistAdministrationRouteAndDose), 
+				p, height = 2.5, width = 2.5) # p, height = 3, width = 4)
+	}else if (inputs$opioid=="carfentanil"){
+		p= p + theme(legend.direction = "vertical",
+				legend.position = "none",    
+				legend.background=element_rect(fill = alpha("white", 0)),  
+				panel.background = element_rect(fill = NA, color = "black"),
+				panel.border = element_blank(),
+				axis.line = element_line(colour = "black"),
+				axis.title.x=element_blank(),
+				axis.title.y=element_blank(),
+				axis.text.x = element_text(size=10,  family="Calibri", color="black"),
+				axis.text.y = element_blank(),
+				axis.ticks = element_line(color = "black"),
+				strip.text.y = element_blank(),
+				text=element_text(size=10,  family="Calibri"))
+		ggsave(sprintf("%s/%s_%s_Delay.svg", outputFolder, inputs$opioid, inputs$antagonistAdministrationRouteAndDose), 
+				p, height = 2.5, width = 2.5)
+	}
+}
