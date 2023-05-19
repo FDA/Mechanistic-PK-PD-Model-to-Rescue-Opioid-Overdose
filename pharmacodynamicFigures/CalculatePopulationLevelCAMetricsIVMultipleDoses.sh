@@ -24,7 +24,7 @@ opioid=${opioids[runIndex]}
 dose=${doses[runIndex]}
 delay=${delays[runIndex]}
 b="_"
-delayString="$b$delay$b"
+delayString="$b$delay"
 
 echo $opioid
 echo $dose

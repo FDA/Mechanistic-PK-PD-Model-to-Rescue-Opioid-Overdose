@@ -8,7 +8,7 @@
 #$ -R y
 #$ -l h_vmem=2G
 #$ -l h_rt=24:00:00
-#$ -t 1-20
+#$ -t 1-4
 #$ -o NULL
 source /projects/mikem/applications/R-4.0.2/set_env.sh
 

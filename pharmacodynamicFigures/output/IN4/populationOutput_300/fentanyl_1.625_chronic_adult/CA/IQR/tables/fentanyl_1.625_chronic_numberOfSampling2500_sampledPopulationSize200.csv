@@ -1,0 +1,8 @@
+"","Percentage2.5","Percentage5","Percentage25","Percentage50","Percentage75","Percentage95","Percentage97.5","antagonistDosesLabels"
+"CAQuantiles",45,46,50,52,54,58,59,"No dose"
+"CAQuantiles.1",43,44,47,50,52,55,56,"1 dose"
+"CAQuantiles.2",43,43,47,50,52,55,56,"2 doses standard"
+"CAQuantiles.3",43,43,47,50,52,55,56,"3 doses standard"
+"CAQuantiles.4",43,43,47,50,52,55,56,"4 doses standard"
+"CAQuantiles.5",41,42,46,48,50,54,55,"2 doses rapid"
+"CAQuantiles.6",41,42,46,48,50,54,55,"4 doses rapid"

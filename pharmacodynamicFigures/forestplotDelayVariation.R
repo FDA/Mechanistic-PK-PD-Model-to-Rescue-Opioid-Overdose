@@ -1,19 +1,16 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-16
+#on: 2023-05-19
 
 #load necessary libraries & scripts====
 library(ggplot2)
-library(grid)
-library(forestplot)
-library(dplyr)
 library(optparse)
 
 #get inputs========================================================================================================================================================================================================================================================================
 parser<-OptionParser()
-parser<-add_option(parser, c("-a", "--opioid"), default ="fentanyl",type="character",help="opioid used to induce respiratory depression (options: fentanyl, carfentanil, sufentanil)")
+parser<-add_option(parser, c("-a", "--opioid"), default ="fentanyl",type="character",help="opioid used to induce respiratory depression (options: fentanyl, carfentanil)")
 parser<-add_option(parser, c("-b", "--opioidDoseToPlot"), default ="2.965",type="numeric",help="opioid concentration (in mg) (options: 1.625, 2.965, 0.012, 0.02187)")
-parser<-add_option(parser, c("-c", "--antagonist"), default ="naloxone",type="character",help="antagonist used to rescue from opioid induced respiratory depression (options: naloxone, nalmefene)")
-parser<-add_option(parser, c("-d", "--antagonistAdministrationRouteAndDose"), default ="IN4",type="character",help="antagonist administration route and dose in mg (options: IN4, IM2EVZIO, IM2Generic, IM5ZIMHI, IVMultipleDoses, IV2, IVBoyer, IM10)")
+parser<-add_option(parser, c("-c", "--antagonist"), default ="naloxone",type="character",help="antagonist used to rescue from opioid induced respiratory depression (options: naloxone)")
+parser<-add_option(parser, c("-d", "--antagonistAdministrationRouteAndDose"), default ="IN4",type="character",help="antagonist administration route and dose in mg (options: IN4, IVMultipleDoses, IVBoyer)")
 parser<-add_option(parser, c("-e", "--subjectType"), default ="chronic",type="character",help="type of subject (options: naive, chronic)")
 parser<-add_option(parser, c("-f", "--subjectIndex"), default ="2001",type="numeric",help="subject index [decides what parameter set to use among population parameter sets](options: 1-2001, 2001 is the 'average' patient)")
 parser<-add_option(parser, c("-g", "--varyInitialDelayInNaloxoneAdministration"), default ="no",type="character",help="whether to randomly vary the initial delay in administration among subjects in a population")
@@ -23,12 +20,11 @@ parser<-add_option(parser, c("-k", "--dispersionMetric"), default ="IQR",type="c
 parser<-add_option(parser, c("-l", "--numberOfSampling"), default ="2500",type="numeric",help="numberOfSampling")
 parser<-add_option(parser, c("-m", "--numberOfSubjectsSelected"), default ="200",type="numeric",help="numberOfSubjectsSelected")
 parser<-add_option(parser, c("-n", "--productInputDate1"), default ="2022-09-15",type="character",help="productInputDate1")
-parser<-add_option(parser, c("-o", "--subjectAge"), default ="adult",type="character",help="age of subject (options: adult, 10YearOld)")
+parser<-add_option(parser, c("-o", "--subjectAge"), default ="adult",type="character",help="age of subject (options: adult)")
 inputs<-parse_args(parser)
 
 #get case names and dates to plot====
 productsToPlot=c(inputs$antagonistAdministrationRouteAndDose,"IVMultipleDoses")
-productInputDatesToPlot=c(Sys.Date(), Sys.Date())
 if (inputs$opioid=="fentanyl"){
 	opioidDosesToPlot=c(1.625, 2.965)
 	chosenPalette=c("#800080", "#00AFBB") 
@@ -42,7 +38,7 @@ delaysToPlot=c(30, 60, 180, 300, 600)
 allOutputFolders=Sys.glob("output/*")
 allOutputCases=gsub("output/", "", allOutputFolders)
 allOutputCases <- allOutputCases[allOutputCases != "forestPlots"] #remove logfiles
-outputFolder=sprintf("output/forestPlots/%s", Sys.Date())
+outputFolder="output/forestPlots"
 system(paste0("mkdir -p ",outputFolder))
 
 #get productsToPlot===
@@ -51,18 +47,17 @@ for (productToPlot in productsToPlot) {
 	for (opioidDoseToPlot in opioidDosesToPlot){ #not needed if all opioid doses for each opioid are being plotted
 		for (delayToPlot in delaysToPlot){ #not needed if all delays for each opioid dose case are being plotted
 			#get all filepaths for this product====
-			productInputDate=productInputDatesToPlot[match(productToPlot, productsToPlot)]
 			
 			#read data====
 			if (delayToPlot==60){
 				delayPhrase=""
 			}else {
-				delayPhrase=paste0("_",delayToPlot,"_")
+				delayPhrase=paste0("_",delayToPlot)
 			}
 			modelOutputFolder=sprintf("%s_%s_%s_%s", inputs$opioid, opioidDoseToPlot, inputs$subjectType, inputs$subjectAge)
 			filePath<-Sys.glob(
-					sprintf("output/%s/populationOutput%s%s/%s/CA/IQR/tables/%s_%s_%s_numberOfSampling%s_sampledPopulationSize%s.csv", 
-							productToPlot, delayPhrase, productInputDate, modelOutputFolder, inputs$opioid, opioidDoseToPlot, inputs$subjectType, inputs$numberOfSampling, inputs$numberOfSubjectsSelected))
+					sprintf("output/%s/populationOutput%s/%s/CA/IQR/tables/%s_%s_%s_numberOfSampling%s_sampledPopulationSize%s.csv", 
+							productToPlot, delayPhrase, modelOutputFolder, inputs$opioid, opioidDoseToPlot, inputs$subjectType, inputs$numberOfSampling, inputs$numberOfSubjectsSelected))
 			data=read.csv(filePath)[,c("antagonistDosesLabels","Percentage25","Percentage50","Percentage75")]
 			
 			data=rbind(cbind(antagonistDosesLabels="No naloxone",

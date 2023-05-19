@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-16
+#on: 2023-05-19
 #define inputs=====================================================================
 CAQuantilesToReport=c(2.5/100, 5/100, 25/100, 50/100, 1-25/100, 1-5/100, 1-2.5/100)
 #==================================================================================
@@ -9,10 +9,10 @@ library(optparse)
 #================
 #get inputs========================================================================================================================================================================================================================================================================
 parser<-OptionParser()
-parser<-add_option(parser, c("-a", "--opioid"), default ="fentanyl",type="character",help="opioid used to induce respiratory depression (options: fentanyl, carfentanil, sufentanil)")
+parser<-add_option(parser, c("-a", "--opioid"), default ="fentanyl",type="character",help="opioid used to induce respiratory depression (options: fentanyl, carfentanil)")
 parser<-add_option(parser, c("-b", "--opioidDose"), default ="1.625",type="numeric",help="opioid concentration (in mg) (options: 1.625, 2.965, 0.012, 0.02187)")
-parser<-add_option(parser, c("-c", "--antagonist"), default ="naloxone",type="character",help="antagonist used to rescue from opioid induced respiratory depression (options: naloxone, nalmefene)")
-parser<-add_option(parser, c("-d", "--antagonistAdministrationRouteAndDose"), default ="IN4",type="character",help="antagonist administration route and dose in mg (options: IN4, IM2EVZIO, IM2Generic, IM5ZIMHI, IVMultipleDoses, IV2, IVBoyer, IM10)")
+parser<-add_option(parser, c("-c", "--antagonist"), default ="naloxone",type="character",help="antagonist used to rescue from opioid induced respiratory depression (options: naloxone)")
+parser<-add_option(parser, c("-d", "--antagonistAdministrationRouteAndDose"), default ="IN4",type="character",help="antagonist administration route and dose in mg (options: IN4, IVMultipleDoses, IVBoyer)")
 parser<-add_option(parser, c("-e", "--subjectType"), default ="chronic",type="character",help="type of subject (options: naive, chronic)")
 parser<-add_option(parser, c("-f", "--subjectIndex"), default ="2001",type="numeric",help="subject index [decides what parameter set to use among population parameter sets](options: 1-2001, 2001 is the 'average' patient)")
 parser<-add_option(parser, c("-g", "--varyInitialDelayInNaloxoneAdministration"), default ="no",type="character",help="whether to randomly vary the initial delay in administration among subjects in a population")
@@ -21,20 +21,17 @@ parser<-add_option(parser, c("-j", "--antagonistAdministrationTimeCase"), defaul
 parser<-add_option(parser, c("-k", "--dispersionMetric"), default ="IQR",type="character",help="what dispersion metric to use after sampling (options: IQR, 90% CI, 95% CI)")
 parser<-add_option(parser, c("-l", "--numberOfSampling"), default ="2500",type="numeric",help="numberOfSampling")
 parser<-add_option(parser, c("-m", "--numberOfSubjectsSelected"), default ="200",type="numeric",help="numberOfSubjectsSelected")
-parser<-add_option(parser, c("-n", "--subjectAge"), default ="adult",type="character",help="age of subject (options: adult, 10YearOld)")
+parser<-add_option(parser, c("-n", "--subjectAge"), default ="adult",type="character",help="age of subject (options: adult)")
 inputs<-parse_args(parser)
 #==================================================================================================================================================================================================================================================================================
 set.seed(100)
-if(inputs$antagonistAdministrationTimeCase=="_60_"){
+if(inputs$antagonistAdministrationTimeCase=="_60"){
 	inputs$antagonistAdministrationTimeCase=""
 }
 if (inputs$antagonistAdministrationRouteAndDose=="IN4"){
 	if(inputs$subjectAge=="adult"){
 		antagonistDosesLabels<-c("No dose","1 dose","2 doses standard","3 doses standard","4 doses standard","2 doses rapid","4 doses rapid")
 		selectedDosesToPlot<-c("No dose", "1 dose")
-	}else if(inputs$subjectAge=="10YearOld"){
-		antagonistDosesLabels<-c("No dose", "1 scaled dose", "1 dose")
-		selectedDosesToPlot<-antagonistDosesLabels
 	}
 	xLabel<-"Antagonist dosing"
 	
@@ -63,15 +60,14 @@ figureHeight<-6
 figureWidth<-7
 
 selectedDoseIndices<-which(antagonistDosesLabels %in% selectedDosesToPlot)
-todaysDate=Sys.Date() #creates output folder based on this
-inputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","individualSubjects",inputs$antagonistAdministrationTimeCase, todaysDate) #"2023-03-23" #todaysDate
+inputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","individualSubjects",inputs$antagonistAdministrationTimeCase) #"2023-03-23" #todaysDate
 modelOutputFolder=sprintf("%s_%s_%s_%s", inputs$opioid, inputs$opioidDose, inputs$subjectType, inputs$subjectAge)
 if(inputs$dispersionMetric=="IQR"){
-	outputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","populationOutput",inputs$antagonistAdministrationTimeCase,todaysDate, "/", modelOutputFolder, "/CA/IQR")
+	outputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","populationOutput",inputs$antagonistAdministrationTimeCase, "/", modelOutputFolder, "/CA/IQR")
 }else if (inputs$dispersionMetric=="90% CI"){
-	outputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","populationOutput",inputs$antagonistAdministrationTimeCase,todaysDate, "/", modelOutputFolder, "/CA/90CI")
+	outputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","populationOutput",inputs$antagonistAdministrationTimeCase, "/", modelOutputFolder, "/CA/90CI")
 }else if (inputs$dispersionMetric=="95% CI"){
-	outputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","populationOutput",inputs$antagonistAdministrationTimeCase,todaysDate, "/", modelOutputFolder, "/CA/95CI")
+	outputFolder=paste0("output/",inputs$antagonistAdministrationRouteAndDose,"/","populationOutput",inputs$antagonistAdministrationTimeCase, "/", modelOutputFolder, "/CA/95CI")
 }
 system(paste0("mkdir -p ",outputFolder))
 system(paste0("mkdir -p ",paste0(outputFolder,"/figures")))	

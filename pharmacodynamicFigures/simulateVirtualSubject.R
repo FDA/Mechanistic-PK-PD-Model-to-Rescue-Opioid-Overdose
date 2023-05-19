@@ -1,8 +1,7 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-16
+#on: 2023-05-18
 
 rm(list = ls()) #removes all objects from the current workspace
-todaysDate=Sys.Date() #creates output folder based on this
 
 #load required package(s)
 library(deSolve)
@@ -11,7 +10,6 @@ library(ggplot2)
 library(gridExtra)
 library(grid)
 library(scales)
-library(dplyr)
 #========================
 
 #load required scripts===================================================

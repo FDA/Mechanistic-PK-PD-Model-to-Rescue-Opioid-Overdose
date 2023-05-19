@@ -1,0 +1,8 @@
+"","Percentage2.5","Percentage5","Percentage25","Percentage50","Percentage75","Percentage95","Percentage97.5","antagonistDosesLabels"
+"CAQuantiles",45,46,50,52,54,58,59,"0"
+"CAQuantiles.1",10,12,14,16,17,19,21,"0.04"
+"CAQuantiles.2",0,1,1,2,2,3,4,"0.04+0.5"
+"CAQuantiles.3",0,1,1,2,2,3,4,"0.04+0.5+2"
+"CAQuantiles.4",0,1,1,2,2,3,4,"0.04+0.5+2+4"
+"CAQuantiles.5",0,1,1,2,2,3,4,"0.04+0.5+2+4+10"
+"CAQuantiles.6",0,1,1,2,2,3,4,"0.04+0.5+2+4+10+15"
