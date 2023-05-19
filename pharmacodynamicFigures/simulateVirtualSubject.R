@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-18
+#on: 2023-05-19
 
 rm(list = ls()) #removes all objects from the current workspace
 
@@ -8,8 +8,6 @@ library(deSolve)
 library(optparse)
 library(ggplot2)
 library(gridExtra)
-library(grid)
-library(scales)
 #========================
 
 #load required scripts===================================================

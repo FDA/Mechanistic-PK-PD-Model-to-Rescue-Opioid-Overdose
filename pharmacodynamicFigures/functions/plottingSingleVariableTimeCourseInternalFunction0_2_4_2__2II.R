@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-15
+#on: 2023-05-19
 plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		myvar, #variable to plot
 		timeUL=10, #time up to which to plot (in mins)
@@ -25,14 +25,6 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 	else if (myvar=="Minute ventilation (l/min)"){horizontalLinePosition=threshold}
 	else {horizontalLinePosition=-5}
 	#====================================where to plot horizontal lines to denote critical thresholds
-	
-	#defining color palette==========================================
-	gg_color_hue <- function(n) {
-		hues = seq(15, 375, length = n + 1)
-		hcl(h = hues, l = 65, c = 100)[1:n]
-	}	
-	colorPalette = hue_pal()(3) #used to mimic Jeff's colors
-	#==========================================defining color palette
 	
 	#calculate timeIndex of death for each dose so that the line can be stopped there===============================================================================
 	timeIndexULL<-c()
