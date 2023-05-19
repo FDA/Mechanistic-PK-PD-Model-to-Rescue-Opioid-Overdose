@@ -1,5 +1,3 @@
-IN PROCESS
-
 # Scripts to generate the pharmacodynamic results (figures and tables) of _Intranasal Naloxone Repeat Dosing Strategies: A Randomized Clinical Trial and Simulation Study_ 
 Mathematical modeling scripts to generate:
 * Figures 3 and 4B, and eFigures 1, 2, 3 
@@ -33,10 +31,7 @@ function files in [functions](https://github.com/FDA/Mechanistic-PK-PD-Model-to-
 This code was developed with R version 4.0.2 and uses the following packages:
 *	deSolve (version 1.30)
 *	ggplot2 (version 3.1.1)
-*	grid
 *	gridExtra (version 2.2.1)
 *	optparse (version 1.4.4)
-*	scales
-
 
 
