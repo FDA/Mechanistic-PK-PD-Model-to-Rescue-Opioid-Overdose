@@ -1,5 +1,5 @@
 //last edited by: Anik Chaturbedi
-//on: 2022-11-18
+//on: 2023-05-22
 #include <R.h>
 #include <Rinternals.h>
 #include <Rdefines.h>
@@ -606,11 +606,22 @@ void derivs (int *neq, double *t, double *y, double *ydot, double *yout, int *ip
 	if(Venti< 0)
 		Venti=0;
 
+	//Arterial O2 saturation====================================================================
+	//Chiari et al. 1997 (Eq. 8 & 9)============================================================
 	double nSaturation=2.6;
 	double k3=26.6; //mm Hg
-	double PO2Virtual=P_a_o2*pow(40/P_a_o2,0.3);
+	double PO2Virtual=P_a_o2*pow(40/P_a_co2,0.3);
 	double SO2=pow(PO2Virtual,nSaturation)/(pow(k3,nSaturation)+pow(PO2Virtual,nSaturation));
 	double arterialOxygenSaturation=SO2*100;
+	//============================================================Chiari et al. 1997 (Eq. 8 & 9)
+
+	//Severinghaus equation
+	//	double arterialOxygenSaturation=pow(((pow((pow(P_a_o2,3) + 150*P_a_o2),-1)*23400)+1),-1)*100;
+
+	//Dividing arterial concentration by maximum concentration using Spencer et al. constants
+	double arterialOxygenSaturation2=(C_a_o2/(Z*C1Spencer))*100;
+	//====================================================================Arterial O2 saturation
+
 
 	if(y[0]>-1e-9 && y[0]<1e-9) {y[0]=0;}
 	if(y[1]>-1e-9 && y[1]<1e-9) {y[1]=0;}
@@ -714,4 +725,6 @@ void derivs (int *neq, double *t, double *y, double *ydot, double *yout, int *ip
 
 	yout[29]=P_T_o2;
 	yout[30]=P_T_co2;
+	
+	yout[31]=arterialOxygenSaturation2;
 }

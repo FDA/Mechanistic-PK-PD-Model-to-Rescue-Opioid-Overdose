@@ -1,3 +1,5 @@
+//last edited by: Anik Chaturbedi
+//on: 2023-05-22
 #include <R.h>
 #include <Rinternals.h>
 #include <Rdefines.h>
@@ -458,14 +460,21 @@ void derivs (int *neq, double *t, double *y, double *ydot, double *yout, int *ip
 		if (Q<=4.9*0.1/60){residualWakefulnessDrive=0; chemoreflex_drive=0; Venti=0;}
 	}
 	//===============================================================================
-	//oxygen saturation calculation========================================================================================
-	//	double nSaturation=2.6;
-	//	double k3=26.6; //mm Hg
-	//	double PO2Virtual=P_a_o2*pow(40/P_a_o2,0.3);
-	//	double SO2=pow(PO2Virtual,nSaturation)/(pow(k3,nSaturation)+pow(PO2Virtual,nSaturation));
-	//	double arterialOxygenSaturation=SO2*100;
-	double arterialOxygenSaturation=pow(((pow((pow(P_a_o2,3) + 150*P_a_o2),-1)*23400)+1),-1)*100; /*Severinghaus equation*/
-	//=====================================================================================================================
+	//Arterial O2 saturation====================================================================
+	//Chiari et al. 1997 (Eq. 8 & 9)============================================================
+	double nSaturation=2.6;
+	double k3=26.6; //mm Hg
+	double PO2Virtual=P_a_o2*pow(40/P_a_co2,0.3);
+	double SO2=pow(PO2Virtual,nSaturation)/(pow(k3,nSaturation)+pow(PO2Virtual,nSaturation));
+	double arterialOxygenSaturation=SO2*100;
+	//============================================================Chiari et al. 1997 (Eq. 8 & 9)
+
+	//Severinghaus equation
+	//	double arterialOxygenSaturation=pow(((pow((pow(P_a_o2,3) + 150*P_a_o2),-1)*23400)+1),-1)*100;
+
+	//Dividing arterial concentration by maximum concentration using Spencer et al. constants
+	double arterialOxygenSaturation2=(C_a_o2/(Z*C1Spencer))*100;
+	//====================================================================Arterial O2 saturation
 	//very small values (both positive and negative) set to zero (WHY???)=====
 	if(y[0]>-1e-9 && y[0]<1e-9) {y[0]=0;}
 	if(y[1]>-1e-9 && y[1]<1e-9) {y[1]=0;}
@@ -561,4 +570,5 @@ void derivs (int *neq, double *t, double *y, double *ydot, double *yout, int *ip
 	yout[20]=k31C;
 	yout[21]=VPC; /*Opioid volume of distribution (L?)*/
 	yout[22]=arterialOxygenSaturation; /*Arterial O2 saturation (%)*/
+	yout[23]=arterialOxygenSaturation2; /*Arterial O2 saturation (%) alternate*/
 }

@@ -8,7 +8,7 @@ FDA DARS mechanistic modeling team
 
 # Workflow
 ## Generating Figure 3 and eFigure 1
-Executing [SimulateVirtualSubjects.sh](SimulateVirtualSubjects.sh) calls [simulateVirtualSubject.R](simulateVirtualSubject.R) and necessary 
+Executing [SimulateVirtualSubjectsIN4.sh](SimulateVirtualSubjectsIN4.sh) calls [simulateVirtualSubject.R](simulateVirtualSubject.R) and necessary 
 model files in [models](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/1d837704adb995684fc0ce584260776abf7e40a6/pharmacodynamic%20figures/models), 
 model parameters in [input](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/1d837704adb995684fc0ce584260776abf7e40a6/pharmacodynamic%20figures/input) and 
 function files in [functions](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/1d837704adb995684fc0ce584260776abf7e40a6/pharmacodynamic%20figures/functions) to generate **Figure 3** and **eFigure 1 A, B, C** in [output/IN4/optimalOutput](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/a579e77d9af885898a56e3d3175c58fafceec7bf/pharmacodynamicFigures/output/IN4/optimalOutput).

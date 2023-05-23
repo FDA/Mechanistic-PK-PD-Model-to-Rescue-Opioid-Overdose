@@ -1,21 +1,26 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-19
+#on: 2023-05-22
 plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		myvar, #variable to plot
 		timeUL=10, #time up to which to plot (in mins)
 		firstNaloxoneIntroductionTime #(in seconds)
 ){	
 	antagonistDoseIndices<-c(1,2,3,4,5,6,7)
-	firstNaloxoneIntroductionTimeJoined=firstNaloxoneIntroductionTime + max(fulltimes) #(in seconds)
-	ShiftTimeAxisBy=firstNaloxoneIntroductionTimeJoined
-	ppJoined=c()
+	
+	ShiftTimeAxisBy=firstNaloxoneIntroductionTime
 	for (naloxoneDoseIndex in antagonistDoseIndices){
-		pp[[1]][[naloxoneDoseIndex]][,"time"]=pp[[1]][[naloxoneDoseIndex]][,"time"]+max(fulltimes)
-		ppJoined[[1]][[naloxoneDoseIndex]]<-rbind(OutputUptoSS, pp[[1]][[naloxoneDoseIndex]])
-		ppJoined[[1]][[naloxoneDoseIndex]][,"time"]=ppJoined[[1]][[naloxoneDoseIndex]][,"time"]-ShiftTimeAxisBy
-		ppJoined[[1]][[naloxoneDoseIndex]]=ppJoined[[1]][[naloxoneDoseIndex]][ppJoined[[1]][[naloxoneDoseIndex]][,"time"]>=-2.5*60,]
+		pp[[1]][[naloxoneDoseIndex]][,"time"]=pp[[1]][[naloxoneDoseIndex]][,"time"]-ShiftTimeAxisBy
 	}
-	pp=ppJoined
+#	firstNaloxoneIntroductionTimeJoined=firstNaloxoneIntroductionTime + max(fulltimes) #(in seconds)
+#	ShiftTimeAxisBy=firstNaloxoneIntroductionTimeJoined
+#	ppJoined=c()
+#	for (naloxoneDoseIndex in antagonistDoseIndices){
+#		pp[[1]][[naloxoneDoseIndex]][,"time"]=pp[[1]][[naloxoneDoseIndex]][,"time"]+max(fulltimes)
+#		ppJoined[[1]][[naloxoneDoseIndex]]<-rbind(OutputUptoSS, pp[[1]][[naloxoneDoseIndex]])
+#		ppJoined[[1]][[naloxoneDoseIndex]][,"time"]=ppJoined[[1]][[naloxoneDoseIndex]][,"time"]-ShiftTimeAxisBy
+#		ppJoined[[1]][[naloxoneDoseIndex]]=ppJoined[[1]][[naloxoneDoseIndex]][ppJoined[[1]][[naloxoneDoseIndex]][,"time"]>=-2.5*60,]
+#	}
+#	pp=ppJoined
 	
 	plottedAntagonistDoseIndices<-c(1,3,5,7)
 	labels="off" #"on"
@@ -50,15 +55,17 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 	#==============================================================================================================================lines for different doses
 	
 	#defining line colors and labels=======================================================================================================================
-	plot <- plot+ scale_color_manual(name = "Naloxone dosing (mg)", values=c(a="black",			c="#C8513B",		e="#6289C2",		g="#E6A03A"), #colorblind friendly David's palette
+	plot <- plot+ scale_color_manual(name = "Naloxone dosing (mg)", values=c(a="black",			c="#C8513B",		e="#6289C2",		g="#E6A03A"), #colorblind friendly palette
 			labels = antagonistDosesLabels[plottedAntagonistDoseIndices])
 	#=======================================================================================================================defining line colors and labels
 	
 	#"X"s to indicate cardiac arrest======================================================================================================================
-	plot <- plot+ geom_point(aes(x=pp[[1]][[1]][timeIndexUL[1],"time"]/60,pp[[1]][[1]][timeIndexUL[1], myvar]), shape=4, color="black", size=4, stroke = 3)
-	plot <- plot+ geom_point(aes(x=pp[[1]][[3]][timeIndexUL[3],"time"]/60,pp[[1]][[3]][timeIndexUL[3], myvar]), shape=4, color="black", size=4, stroke = 3)
-	plot <- plot+ geom_point(aes(x=pp[[1]][[5]][timeIndexUL[5],"time"]/60,pp[[1]][[5]][timeIndexUL[5], myvar]), shape=4, color="black", size=4, stroke = 3)
-	plot <- plot+ geom_point(aes(x=pp[[1]][[7]][timeIndexUL[7],"time"]/60,pp[[1]][[7]][timeIndexUL[7], myvar]), shape=4, color="black", size=4, stroke = 3)
+	if (myvar=="Cardiac output (l/min)"){
+		plot <- plot+ geom_point(aes(x=pp[[1]][[1]][timeIndexUL[1],"time"]/60,pp[[1]][[1]][timeIndexUL[1], myvar]), shape=4, color="black", size=4, stroke = 3)
+		plot <- plot+ geom_point(aes(x=pp[[1]][[3]][timeIndexUL[3],"time"]/60,pp[[1]][[3]][timeIndexUL[3], myvar]), shape=4, color="black", size=4, stroke = 3)
+		plot <- plot+ geom_point(aes(x=pp[[1]][[5]][timeIndexUL[5],"time"]/60,pp[[1]][[5]][timeIndexUL[5], myvar]), shape=4, color="black", size=4, stroke = 3)
+		plot <- plot+ geom_point(aes(x=pp[[1]][[7]][timeIndexUL[7],"time"]/60,pp[[1]][[7]][timeIndexUL[7], myvar]), shape=4, color="black", size=4, stroke = 3)
+	}
 	#======================================================================================================================"X"s to indicate cardiac arrest
 	
 	
@@ -66,8 +73,10 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 	
 	plot <- plot+ scale_x_continuous(
 			name=  "Time, minutes",
-			breaks= c(-2.5, -(firstNaloxoneIntroductionTime)/60, seq(0, timeUL, 2.5)), 
-			limits= c(-2.5, timeUL),
+#			breaks= c(-2.5, -(firstNaloxoneIntroductionTime)/60, seq(0, timeUL, 2.5)), 
+#			limits= c(-2.5, timeUL),
+			breaks= c(-(firstNaloxoneIntroductionTime)/60, seq(0, timeUL, 2.5)), 
+			limits= c(-(firstNaloxoneIntroductionTime)/60, timeUL),
 			labels = scales::number_format(accuracy = 0.1)
 	)
 	
@@ -76,7 +85,7 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 	if (myvar=="Minute ventilation (l/min)"){
 		plot <- plot+ scale_y_continuous(
 				name=  "Ventilation, L/minute",
-				limits= c(0, NA),
+				limits= c(0, 8),
 		)
 	}else if (myvar=="Cardiac output (l/min)"){
 		plot <- plot+ scale_y_continuous(
@@ -86,7 +95,7 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 	}else if (myvar=="Brain O2 partial pressure (mm Hg)"){
 		plot <- plot+ scale_y_continuous(
 				name=  "Brain oxygen partial pressure, mm Hg",
-				limits= c(0, NA),
+				limits= c(0, 50),
 		)
 	}else if (myvar=="Opioid bound receptor fraction"){
 		lowerLimit=0.8
@@ -96,6 +105,12 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		plot <- plot+ scale_y_continuous(
 				name=  "Arterial carbon dioxide partial pressure, mm Hg",
 				limits= c(lowerLimit, NA),
+		)
+	}else if (myvar=="Arterial O2 saturation (%) alternate"){
+#		lowerLimit=30
+		plot <- plot+ scale_y_continuous(
+				name=  "Arterial oxygen saturation, %",
+				limits= c(0, 100),
 		)
 	}else{
 		plot <- plot+ scale_y_continuous(

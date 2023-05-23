@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-19
+#on: 2023-05-22
 parser<-OptionParser()
 parser<-add_option(parser, c("-a", "--opioid"), default ="fentanyl", type="character", help="opioid used to induce respiratory depression (options: fentanyl, carfentanil)")
 parser<-add_option(parser, c("-b", "--opioidDose"), default ="1.625", type="numeric", help="opioid concentration (in mg) (options: 1.625, 2.965, 0.012, 0.02187)")
@@ -48,7 +48,11 @@ if (simulationTime>2*60*60){
 }else {
 	simulationTimeStep<-0.1 #(in seconds) 
 }
-timeUL<-10 #10 #simulationTime/60 #15 #time to plot (in minutes)
+if (inputs$opioid=="carfentanil" & inputs$opioidDose==0.012){
+	timeUL<-10 #12.5 #10 #simulationTime/60 #15 #time to plot (in minutes)
+}else {
+	timeUL<-10 #12.5 #10 #simulationTime/60 #15 #time to plot (in minutes)
+}
 
 adding_threshold_CO2<-"no" #define whether collapse is PaCO2 dependent or not
 adding_threshold_O2<-"yes" #define whether collapse is PaO2 dependent or not

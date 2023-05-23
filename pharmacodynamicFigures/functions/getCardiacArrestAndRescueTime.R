@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2022-02-24
+#on: 2023-05-22
 getCardiacArrestAndRescueTime<-function(out){	
 	CA_YN="yes"
 	if(min(out[,"Cardiac output (l/min)"])>CABloodFlow){CA_YN="no"}
@@ -26,7 +26,8 @@ getCardiacArrestAndRescueTime<-function(out){
 	if (CA_YN=="yes" & length(tAPn)!=0) { #yes CA, no Pbo2<20mmhg
 		ttA1=tAPn[1];ttA2=tAPn[length(tAPn)];ttA3=60*60;}
 	
-	tSPn=out[,c("time")][out[,"Arterial O2 saturation (%)"]<=SThArterialO2Saturation]
+#	tSPn=out[,c("time")][out[,"Arterial O2 saturation (%)"]<=SThArterialO2Saturation]
+	tSPn=out[,c("time")][out[,"Arterial O2 saturation (%) alternate"]<=SThArterialO2Saturation]
 	ttS1=tSPn[1];ttS2=tSPn[length(tSPn)];ttS3=tSPn[length(tSPn)]-tSPn[1];
 	if (CA_YN=="no" & length(tSPn)==0) { #no CA, no PSo2<90mmhg
 		ttS1=0;ttS2=0;ttS3=0;}
