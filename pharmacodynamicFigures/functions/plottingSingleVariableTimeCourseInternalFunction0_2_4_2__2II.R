@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-22
+#on: 2023-05-25
 plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		myvar, #variable to plot
 		timeUL=10, #time up to which to plot (in mins)
@@ -90,7 +90,7 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 	}else if (myvar=="Cardiac output (l/min)"){
 		plot <- plot+ scale_y_continuous(
 				name=  "Cardiac output, L/minute",
-				limits= c(0, NA),
+				limits= c(0, 10),
 		)
 	}else if (myvar=="Brain O2 partial pressure (mm Hg)"){
 		plot <- plot+ scale_y_continuous(
@@ -102,9 +102,17 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		plot <- plot+ ylim(lowerLimit, 1)
 	}else if (myvar=="Arterial CO2 partial pressure (mm Hg)"){
 		lowerLimit=30
+		upperLimit=70 #NA
 		plot <- plot+ scale_y_continuous(
 				name=  "Arterial carbon dioxide partial pressure, mm Hg",
-				limits= c(lowerLimit, NA),
+				limits= c(lowerLimit, upperLimit),
+		)
+	}else if (myvar=="Arterial O2 partial pressure (mm Hg)"){
+		lowerLimit=0
+		upperLimit=100 #NA
+		plot <- plot+ scale_y_continuous(
+				name=  "Arterial oxygen partial pressure, mm Hg",
+				limits= c(lowerLimit, upperLimit),
 		)
 	}else if (myvar=="Arterial O2 saturation (%) alternate"){
 #		lowerLimit=30
