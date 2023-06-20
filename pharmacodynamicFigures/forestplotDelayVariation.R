@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-19
+#on: 2023-06-20
 
 #load necessary libraries & scripts====
 library(ggplot2)
@@ -98,13 +98,16 @@ p=ggplot(data=allData, aes(
 		facet_grid(rows = vars(antagonistRouteAndDose), scales = "free", space = "free") +
 		geom_point(aes(shape= opioidDoseToPlot,col=opioidDoseToPlot)) + 
 		geom_errorbarh(aes(col=opioidDoseToPlot),height=0.2) +
-		labs(x='Percent of virtual patients experiencing cardiac arrest', y = 'Delay in naloxone administration (min)') +
+		labs(x='Percent of simulated patients experiencing cardiac arrest', y = 'Delay in naloxone administration (min)') +
+#		scale_x_continuous(limits=c(0, 95), breaks=seq(0, 90, 10)) +
 		scale_x_continuous(limits=c(0, 100), breaks=seq(0, 100, 10)) +
 		scale_colour_manual(values=chosenPalette)+
 		theme_bw()
-
 if (inputs$antagonistAdministrationRouteAndDose=="IN4"){
-	p= p + theme(legend.direction = "vertical",
+	p= p + theme(
+			panel.grid.major = element_blank(), 
+			panel.grid.minor = element_blank(),
+			legend.direction = "vertical",
 			legend.position = "none",    
 			legend.background=element_rect(fill = alpha("white", 0)),  
 			panel.background = element_rect(fill = NA, color = "black"),
@@ -118,7 +121,7 @@ if (inputs$antagonistAdministrationRouteAndDose=="IN4"){
 			strip.text.y = element_blank(),
 			text=element_text(size=10,  family="Calibri"))
 	ggsave(sprintf("%s/%s_%s_Delay.svg", outputFolder, inputs$opioid, inputs$antagonistAdministrationRouteAndDose), 
-			p, height = 3, width = 5)
+			p, height = 3, width = 4)
 }else {
 	if (inputs$opioid=="fentanyl"){
 		p= p + theme(legend.direction = "vertical",

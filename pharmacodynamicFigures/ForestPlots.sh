@@ -9,7 +9,7 @@
 #$ -l h_vmem=4G
 #$ -l h_rt=24:00:00
 #$ -t 1
-#$ -o NULL
+#$ -o ForPlot
 source /projects/mikem/applications/R-4.0.2/set_env.sh
 
 #Figure 4B
