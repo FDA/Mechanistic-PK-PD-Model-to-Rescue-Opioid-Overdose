@@ -1,5 +1,5 @@
 #last edited by: Anik Chaturbedi
-#on: 2023-05-25
+#on: 2023-07-07
 plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		myvar, #variable to plot
 		timeUL=10, #time up to which to plot (in mins)
@@ -91,6 +91,11 @@ plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2<-function(
 		plot <- plot+ scale_y_continuous(
 				name=  "Cardiac output, L/minute",
 				limits= c(0, 10),
+		)
+	}else if (myvar=="Blood flow to brain (l/min)"){
+		plot <- plot+ scale_y_continuous(
+				name=  "Blood flow to brain, L/minute",
+				limits= c(0, 3),
 		)
 	}else if (myvar=="Brain O2 partial pressure (mm Hg)"){
 		plot <- plot+ scale_y_continuous(
