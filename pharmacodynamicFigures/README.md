@@ -4,7 +4,7 @@ Mathematical modeling scripts to generate:
 * Table 1 and eTable 7
 
 ## Authors
-FDA DARS mechanistic modeling team
+FDA/CDER/OTS/OCP/DARS mechanistic modeling team
 
 ## Workflow
 ### Generating Figure 3 and eFigure 1
