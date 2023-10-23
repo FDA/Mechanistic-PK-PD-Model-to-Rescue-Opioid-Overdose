@@ -1,0 +1,8 @@
+parameter,mean/median,sd,CV%,min,max
+CMax,1.99,,51.3,,
+TMax,2,,,0.33,3
+AUC2_5,0,0,,,
+AUC5,0,0,,,
+AUC10,0.005,0.01,,,
+AUC15,0.026,0.036,,,
+AUC20,0.226,0.202,,,
