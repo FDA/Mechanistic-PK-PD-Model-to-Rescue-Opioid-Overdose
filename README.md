@@ -6,7 +6,7 @@ R code to utilize mechanistic PK-PD model of opioid overdose for simulation of o
 
 # Authors
 
-
+Anik Chaturbedi,  Shilpa Chakravartula, John Mann, Mohammadreza Samieegohar, Zhihua Li
 
 
 # Requirements
