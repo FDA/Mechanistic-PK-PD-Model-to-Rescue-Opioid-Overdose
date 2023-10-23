@@ -1,0 +1,26 @@
+#last edited by: Anik Chaturbedi
+#on: 2023-07-07
+plottingSingleVariableTimeCourse<-function(varvec){	
+	firstNaloxoneIntroductionTime=pp[[2]]
+	timeOfDeath<- (crossing(pp[[1]][[1]][,"Cardiac output (l/min)"], pp[[1]][[1]][,"time"], CABloodFlow)[[2]][1])/60
+	outputFolder=paste0("output/",
+			inputs$antagonistAdministrationRouteAndDose,"/",
+			"optimalOutput",antagonistAdministrationTimeCase,"/",
+			inputs$subjectType,",",inputs$opioidDose,"mg",inputs$opioid,",",timeUL,"mins")	
+	outputFolder0_2_4_2__2=paste0(outputFolder,"/0_2_4_2__2dose")	
+#	system(paste0("mkdir -p ",outputFolder0_2_4_2__2))
+	system(paste0("mkdir -p ",outputFolder0_2_4_2__2,"/landscape"))
+#	system(paste0("mkdir -p ",outputFolder0_2_4_2__2,"/portrait"))
+	
+	for (variableToPlot in varvec){	
+		plot<-plottingSingleVariableTimeCourseInternalFunction0_2_4_2__2(variableToPlot, timeUL, firstNaloxoneIntroductionTime)
+		p <- grid.arrange(plot, ncol=1, nrow=1)	
+		if (variableToPlot=="Arterial O2 saturation (%)"){
+			variableToPlot="Arterial O2 saturation"
+		}else if (variableToPlot=="Arterial O2 saturation (%) alternate"){
+			variableToPlot="Arterial O2 saturation alternate"
+		}
+		ggsave(sprintf("%s/landscape/%s.svg",outputFolder0_2_4_2__2,gsub("/", "_", variableToPlot)), p, height = 4, width = 5) #landscape	
+#		ggsave(sprintf("%s/portrait/%s.svg",outputFolder0_2_4_2__2,gsub("/", "_", variableToPlot)), p, height = 4, width = 4) #portrait	 	
+	}
+}
