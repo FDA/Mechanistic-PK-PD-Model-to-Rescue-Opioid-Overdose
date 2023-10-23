@@ -21,7 +21,7 @@ This code was developed with R version 3.6.0 and uses the following packages:
 
 # Codes
 
-To be provided
+Codes are provided in [pharmacodynamicFigures](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Intranasal-Naloxone-Repeat-Dosing-Strategies-and-Fentayl-Overdose/pharmacodynamicFigures) and in [Naloxone_Clinical_Figure4A](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Intranasal_Naloxone_Repeat_Dosing_and_Fentanyl_Overdose/Naloxone_Clinical_Figure4A) for a subset of the pharmacodynamic and pharmacokinetic figures respectively. 
 
 
 ## References
