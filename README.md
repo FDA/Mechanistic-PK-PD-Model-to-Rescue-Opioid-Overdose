@@ -8,7 +8,7 @@ R code to utilize mechanistic PK-PD model of opioid overdose for simulation of o
 
 Codes and results for Intranasal Repeat Dosing Study can be found in the [ Intranasal_Naloxone_Repeat_Dosing_and_Fentanyl_Overdose](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Intranasal_Naloxone_Repeat_Dosing_and_Fentanyl_Overdose) branch. 
 
-Codes and results for the Machine Learning Study will be uploaded to a separate branch.
+Codes and results for the Machine Learning Study will be uploaded to the [Breaking-the-Black-Box-ML](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Breaking-the-Black-Box-ML) branch.
 
 # Authors
 
