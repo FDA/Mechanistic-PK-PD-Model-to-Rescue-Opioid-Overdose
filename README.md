@@ -13,6 +13,6 @@ The deep learning models were implemented in python 3.6 using TensorFlow version
 
 Figures were generated using R version 4.2.1 and ggplot2 version 3.4.0
 
-Results (Figure 3 and 4 from the Manuscript) can be found in [[prediction/Results]([https://pages.github.com](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Breaking-the-Black-Box-ML/prediction/Results)https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Breaking-the-Black-Box-ML/prediction/Results/).
+Results (Figure 3 and 4 from the Manuscript) can be found in [prediction/Results]([https://pages.github.com](https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Breaking-the-Black-Box-ML/prediction/Results)https://github.com/FDA/Mechanistic-PK-PD-Model-to-Rescue-Opioid-Overdose/tree/Breaking-the-Black-Box-ML/prediction/Results/).
 
 
