@@ -241,7 +241,7 @@ if __name__ == "__main__":
     saver = tf.train.Saver()
   
    
-    path = '/training/nonshuffled/opioids/carfentanil_10_120_0.25_bs2'
+    path = '/opioids/carfentanil_10_120_0.25_bs2'
 
     files=glob.glob(path)
     with tf.Session() as sess:
