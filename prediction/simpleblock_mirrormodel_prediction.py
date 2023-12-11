@@ -296,8 +296,7 @@ if __name__ == "__main__":
     mymodel = Model("saved_model", train_mode=train_mode, input_dim=15, T=961,batch_size=256)
     saver = tf.train.Saver()
     
-  #  path = '/scratch/john.mann/opioids_AI/nonshuffled/opioids/*bs2'
-    path = '/scratch/john.mann/opioids_AI/nonshuffled/opioids/carfentanil_10_120_0.25_bs2'
+     path = 'opioids/carfentanil_10_120_0.25_bs2'
     files=glob.glob(path)
     with tf.Session() as sess:
         saver.restore(sess,"/home/john.mann/documents/opioids_AI/LSTM_network/training/saved_model/mymodel-86")
